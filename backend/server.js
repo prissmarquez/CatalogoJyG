@@ -24,7 +24,9 @@ app.use(express.static(frontendPath));
 // });
 
 const auth = new google.auth.GoogleAuth({
-    credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
+    ...(process.env.GOOGLE_CREDENTIALS
+        ? { credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS) }
+        : { keyFile: path.join(__dirname, "config", "google-credentials.json") }),
     scopes: [
         "https://www.googleapis.com/auth/spreadsheets.readonly"
     ],
