@@ -1,4 +1,8 @@
-require("dotenv").config();
+// require("dotenv").config();
+
+require("dotenv").config({
+    path: require("path").join(__dirname, ".env")
+});
 
 const fs = require("fs");
 const os = require("os");
@@ -28,7 +32,7 @@ const auth = new google.auth.GoogleAuth({
         ? { credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS) }
         : { keyFile: path.join(__dirname, "config", "google-credentials.json") }),
     scopes: [
-        "https://www.googleapis.com/auth/spreadsheets.readonly"
+        "https://www.googleapis.com/auth/spreadsheets"
     ],
 });
 
@@ -75,6 +79,8 @@ const spreadsheets = {
     V: process.env.SPREADSHEET_V,
     Y: process.env.SPREADSHEET_Y
 };
+
+const SPREADSHEET_BUSQUEDA = process.env.SPREADSHEET_BUSQUEDA;
 
 async function leerHoja(spreadsheetId, sheetName) {
     const client = await auth.getClient();
@@ -246,120 +252,199 @@ async function ejecutarConReintento(operacion, intentos = 6) {
     throw new Error("No se pudo completar la petición a Google Sheets después de varios intentos.");
 }
 
+// ==========================================
+// GENERAR INDICE MAESTRO PARA EL BUSCADOR
+// ==========================================
+
+async function generarIndiceBusqueda() {
+
+    console.log("Generando índice de búsqueda...");
+
+    const client = await auth.getClient();
+
+    const googleSheets = google.sheets({
+        version: "v4",
+        auth: client
+    });
+
+    const productosIndice = [];
+
+    // Recorrer archivos A, B, C... Y
+    for (const letra in spreadsheets) {
+
+        const spreadsheetId = spreadsheets[letra];
+
+        if (!spreadsheetId) {
+            console.log("Spreadsheet no configurado:", letra);
+            continue;
+        }
+
+        try {
+
+            console.log("Leyendo archivo:", letra);
+
+            // Obtener todas las pestañas del archivo
+            const meta = await ejecutarConReintento(() =>
+                googleSheets.spreadsheets.get({
+                    spreadsheetId
+                })
+            );
+
+            const hojas = meta.data.sheets.map(
+                sheet => sheet.properties.title
+            );
+
+            // Recorrer cada pestaña
+            for (const hoja of hojas) {
+
+                try {
+
+                    console.log("Leyendo hoja:", hoja);
+
+                    const data = await leerHoja(
+                        spreadsheetId,
+                        hoja
+                    );
+
+                    if (!data || data.length <= 1) {
+                        continue;
+                    }
+
+                    const headers = data[0];
+                    const rows = data.slice(1);
+
+                    const indiceNombre = headers.findIndex(
+                        h => h?.trim().toLowerCase() === "nombre"
+                    );
+
+                    const indiceClave = headers.findIndex(
+                        h => h?.trim().toLowerCase() === "clave"
+                    );
+
+                    // Si la hoja no tiene Nombre o Clave, la ignoramos
+                    if (indiceNombre === -1 || indiceClave === -1) {
+                        console.log(
+                            `Hoja ignorada (${hoja}): faltan Nombre o Clave`
+                        );
+                        continue;
+                    }
+
+                    rows.forEach(row => {
+
+                        const nombre = row[indiceNombre] || "";
+                        const clave = row[indiceClave] || "";
+
+                        // Ignorar filas vacías
+                        if (!nombre && !clave) {
+                            return;
+                        }
+
+                        productosIndice.push([
+                            String(clave),
+                            String(nombre),
+                            hoja
+                        ]);
+
+                    });
+
+                    console.log(
+                        `OK ${hoja}: ${rows.length} filas`
+                    );
+
+                    // Evitar golpear demasiado rápido la API de Google
+                    await sleep(1000);
+
+                } catch (error) {
+
+                    console.error(
+                        `Error leyendo hoja ${hoja}:`,
+                        error.message
+                    );
+
+                }
+            }
+
+        } catch (error) {
+
+            console.error(
+                `Error leyendo archivo ${letra}:`,
+                error.message
+            );
+
+        }
+    }
+
+    console.log(
+        "Productos encontrados:",
+        productosIndice.length
+    );
+
+    // Primero limpiar la hoja BUSQUEDA anterior
+    await ejecutarConReintento(() =>
+        googleSheets.spreadsheets.values.clear({
+            spreadsheetId: SPREADSHEET_BUSQUEDA,
+            range: "BUSQUEDA!A:C"
+        })
+    );
+
+    // Escribir encabezados + productos
+    const valores = [
+        ["Clave", "Nombre", "Linea"],
+        ...productosIndice
+    ];
+
+    await ejecutarConReintento(() =>
+        googleSheets.spreadsheets.values.update({
+            spreadsheetId: SPREADSHEET_BUSQUEDA,
+            range: "BUSQUEDA!A1",
+            valueInputOption: "RAW",
+            requestBody: {
+                values: valores
+            }
+        })
+    );
+
+    console.log(
+        `Índice actualizado correctamente: ${productosIndice.length} productos`
+    );
+
+    return productosIndice.length;
+}
+
 // ============================
 // CARGAR TODOS LOS PRODUCTOS
 // ============================
 
 async function cargarCacheBusqueda() {
 
-    cacheBusqueda = [];
+    console.log("Cargando índice desde BUSQUEDA...");
 
-    for (const letra in spreadsheets) {
+    const data = await leerHoja(
+        SPREADSHEET_BUSQUEDA,
+        "BUSQUEDA"
+    );
 
-    const spreadsheetId = spreadsheets[letra];
-
-    if (!spreadsheetId) {
-        console.log("Spreadsheet no configurado:", letra);
-        continue;
+    if (!data || data.length <= 1) {
+        cacheBusqueda = [];
+        console.log("BUSQUEDA está vacía");
+        return;
     }
 
-    try {
+    const rows = data.slice(1);
 
-            const client = await auth.getClient();
-
-            const googleSheets = google.sheets({
-                version: "v4",
-                auth: client,
-            });
-
-           const meta = await ejecutarConReintento(() =>
-    googleSheets.spreadsheets.get({
-        spreadsheetId,
-    })
-);
-
-await sleep(2000);
-
-            const hojas =
-                meta.data.sheets.map(
-                    s => s.properties.title
-                );
-
-            for (const hoja of hojas) {
-
-                try {
-
-                    const data =
-                        await leerHoja(
-                            spreadsheetId,
-                            hoja
-                        );
-
-                    if (!data || data.length === 0)
-                        continue;
-
-                    const headers = data[0];
-                    const rows = data.slice(1);
-
-                    rows.forEach(row => {
-
-                        let obj = {};
-
-                        headers.forEach((header, index) => {
-
-                            obj[header.trim()] =
-                                row[index];
-                        });
-
-                        cacheBusqueda.push({
-
-                            linea: hoja,
-
-                            Nombre:
-                                obj.Nombre ||
-                                obj.NOMBRE ||
-                                "",
-
-                            Clave:
-                                obj.Clave || ""
-                        });
-
-                    });
-
-                    console.log(
-                        "OK hoja:",
-                        hoja
-                    );
-
-                    await sleep(1500);
-
-                } catch (err) {
-
-                    console.log(
-                        "Error hoja:",
-                        hoja
-                    );
-
-                    console.error(err.message);
-                }
-            }
-
-        } catch (err) {
-
-            console.log(
-                "Error spreadsheet:",
-                letra
-            );
-
-            console.error(err.message);
-        }
-    }
+    cacheBusqueda = rows
+        .filter(row => row[0] || row[1])
+        .map(row => ({
+            Clave: String(row[0] || ""),
+            Nombre: String(row[1] || ""),
+            linea: String(row[2] || "")
+        }));
 
     console.log(
-        "Productos cargados:",
-        cacheBusqueda.length
+        `Cache de búsqueda cargado: ${cacheBusqueda.length} productos`
     );
 }
+
 
 
 app.get("/api/productos/:hoja", async (req, res) => {
@@ -380,6 +465,39 @@ app.get("/api/productos/:hoja", async (req, res) => {
         res.status(500).json({
             error: error.message
         });
+    }
+});
+
+// ==========================================
+// ACTUALIZAR INDICE DE BUSQUEDA
+// ==========================================
+
+app.get("/api/actualizar-busqueda", async (req, res) => {
+
+    try {
+
+        const total = await generarIndiceBusqueda();
+
+        // Borrar cache anterior para que después
+        // se vuelva a cargar con información nueva
+        cacheBusqueda = [];
+        cacheBusquedaTimestamp = 0;
+
+        res.json({
+            ok: true,
+            mensaje: "Índice de búsqueda actualizado",
+            productos: total
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            ok: false,
+            error: error.message
+        });
+
     }
 });
 
@@ -412,10 +530,15 @@ app.get("/api/busqueda", async (req, res) => {
                     producto.linea
                         ?.toLowerCase() || "";
 
+                const clave =
+                    producto.Clave
+                        ?.toLowerCase() || "";
+
                 return (
-                    nombre.includes(q) ||
-                    linea.includes(q)
-                );
+    nombre.includes(q) ||
+    clave.includes(q) ||
+    linea.includes(q)
+);
             });
 
         res.json(
@@ -436,7 +559,7 @@ async function iniciarServidor() {
     const PORT = process.env.PORT || 3000;
 
     app.listen(PORT, () => {
-        console.log(`Servidor corriendo en puerto ${PORT}`);
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
 }
 
