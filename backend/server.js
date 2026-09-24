@@ -447,6 +447,87 @@ async function cargarCacheBusqueda() {
 
 
 
+// Solo se guardan las claves seleccionadas; los datos vienen de Google Sheets.
+const clavesMasVendidos = require("./config/mas-vendidos.json");
+const normalizarClave = valor => String(valor ?? "").trim();
+
+const promociones = require("./config/promociones.json");
+
+app.get("/api/promociones", async (req, res) => {
+    try {
+        const hojas = new Map();
+        const grupos = [];
+        const normalizarNombre = valor => String(valor || "").normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        for (const oferta of promociones) {
+            if (!hojas.has(oferta.linea)) {
+                hojas.set(oferta.linea, await obtenerProductosPorHoja(oferta.linea));
+            }
+            const productos = hojas.get(oferta.linea).filter(producto => {
+                const clave = normalizarClave(producto.Clave);
+                if (!clave || oferta.excluirClaves?.includes(clave)) return false;
+                if (oferta.claves) return oferta.claves.includes(clave);
+                return oferta.contieneTodos.every(texto => normalizarNombre(producto.Nombre).includes(texto));
+            }).map(producto => ({
+                ...producto, linea: oferta.linea,
+                descuento: oferta.descuento, precioEspecial: oferta.precioEspecial
+            }));
+            grupos.push({ titulo: oferta.titulo, productos });
+        }
+        res.json({ grupos });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "No se pudieron cargar las promociones." });
+    }
+});
+
+app.get("/api/mas-vendidos", async (req, res) => {
+    try {
+        await asegurarCacheBusqueda();
+        const seleccion = clavesMasVendidos.map(clave =>
+            cacheBusqueda.find(p => normalizarClave(p.Clave) === normalizarClave(clave))
+        ).filter(Boolean);
+        const hojas = new Map();
+        // Una lectura por línea, incluso cuando varios productos comparten hoja.
+        for (const linea of new Set(seleccion.map(p => p.linea))) {
+            hojas.set(linea, await obtenerProductosPorHoja(linea));
+        }
+        const productos = seleccion.map(ref => {
+            const producto = hojas.get(ref.linea).find(p =>
+                normalizarClave(p.Clave) === normalizarClave(ref.Clave));
+            return producto ? { ...producto, linea: ref.linea } : null;
+        }).filter(Boolean);
+        res.json({ productos });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "No se pudieron cargar los productos destacados." });
+    }
+});
+
+app.get("/api/producto/:clave", async (req, res) => {
+    try {
+        const clave = normalizarClave(req.params.clave);
+        let linea = typeof req.query.linea === "string" ? req.query.linea.trim() : "";
+        if (!linea) {
+            await asegurarCacheBusqueda();
+            const coincidencias = cacheBusqueda.filter(p => normalizarClave(p.Clave) === clave);
+            const lineas = [...new Set(coincidencias.map(p => p.linea))];
+            if (lineas.length > 1) {
+                return res.status(409).json({ error: "La clave aparece en varias líneas. Abre el producto desde su línea." });
+            }
+            linea = lineas[0];
+        }
+        if (!linea) return res.status(404).json({ error: "Producto no encontrado." });
+        const productos = await obtenerProductosPorHoja(linea);
+        const producto = productos.find(p => normalizarClave(p.Clave) === clave);
+        if (!producto) return res.status(404).json({ error: "Producto no encontrado." });
+        res.json({ ...producto, linea });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "No se pudo cargar el producto. Intenta de nuevo." });
+    }
+});
+
 app.get("/api/productos/:hoja", async (req, res) => {
     try {
         const hoja = req.params.hoja.trim();

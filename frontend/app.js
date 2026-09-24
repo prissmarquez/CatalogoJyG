@@ -12,7 +12,7 @@ console.log("Línea:", linea);
 
 async function cargarProductos() {
 
-    if (!linea) return;
+    if (!linea || !document.getElementById("productsList")) return;
 
     const lineTitle =
         document.getElementById("lineTitle");
@@ -91,60 +91,41 @@ const clave = params.get("clave");
 console.log("Clave:", clave);
 
 async function cargarProducto() {
-
-    // detectar si estamos en producto.html
-    const productName =
-        document.getElementById("productName");
-
+    const productName = document.getElementById("productName");
     if (!productName) return;
-
+    const status = document.getElementById("productStatus");
+    const details = document.getElementById("productDetails");
+    if (!clave) {
+        status.textContent = "Falta la clave del producto en la dirección.";
+        return;
+    }
     try {
-
-        const response = await fetch(
-            `${API_URL}/api/productos/${encodeURIComponent(linea)}`
-        );
-
-        const data = await response.json();
-
-        // buscar producto por clave
-        const producto = data.productos.find(p =>
-            p.Clave == clave
-        );
-
-        console.log(producto);
-
-        // si no existe
-        if (!producto) {
-
-            productName.textContent =
-                "Producto no encontrado";
-
-            return;
+        const query = linea ? `?linea=${encodeURIComponent(linea)}` : "";
+        const response = await fetch(`${API_URL}/api/producto/${encodeURIComponent(clave)}${query}`);
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || "No se pudo cargar el producto.");
         }
-
-        // llenar datos
-        document.getElementById("productLine")
-            .textContent = linea;
-
-        document.getElementById("productName")
-            .textContent = producto.Nombre || "";
-
-        document.getElementById("productDescription")
-            .textContent = producto.Descripcion || "";
-
-        document.getElementById("productCode")
-            .textContent = producto.Clave || "";
-
-        // IMAGEN
-        document.getElementById("productImage")
-            .src = producto.Imagenes || "";
-
-        console.log(producto.Imagenes);
-
+        const producto = await response.json();
+        productName.textContent = producto.Nombre || "Producto";
+        document.title = `${producto.Nombre || "Producto"} | Materiales JyG`;
+        document.getElementById("productLine").textContent = producto.linea;
+        document.getElementById("productDescription").textContent = producto.Descripcion || "Sin descripción disponible.";
+        document.getElementById("productCode").textContent = producto.Clave;
+        const img = document.getElementById("productImage");
+        const placeholder = document.getElementById("productImagePlaceholder");
+        img.alt = producto.Nombre || "Imagen del producto";
+        img.onerror = () => { img.hidden = true; placeholder.hidden = false; };
+        if (producto.Imagenes) {
+            img.hidden = false;
+            img.src = producto.Imagenes;
+        } else {
+            placeholder.hidden = false;
+        }
+        details.hidden = false;
+        status.textContent = "";
     } catch (error) {
-
-        console.error(error);
-
+        status.textContent = error.message || "No se pudo cargar el producto. Recarga para intentarlo de nuevo.";
     }
 }
 

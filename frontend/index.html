@@ -429,6 +429,9 @@
       </div>
 
 
+      <div class="nav-search-actions">
+        <a class="promotions-btn" href="promociones.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="flex-shrink:0"><path d="M20 13 11 22 2 13V2h11l9 9a1.4 1.4 0 0 1 0 2l-2 2" transform="translate(1 0) scale(.9)"/><circle cx="7" cy="7" r="1.5"/><path d="m10 16 6-6"/></svg><span>Promociones</span></a>
+
       <!-- SEARCH -->
       <div class="search-wrap">
 
@@ -440,6 +443,8 @@
         <input type="text" id="searchInput" placeholder="Buscar productos...">
 
         <div id="searchResults" class="search-results"></div>
+
+      </div>
 
       </div>
 
@@ -462,13 +467,12 @@
     </div>
 
     <h1>
-      Todo para tu <span>obra y construcción</span>
+      Bienvenido a <span>JyG</span>
     </h1>
 
     <p>
-      Explora nuestro catálogo digital de materiales,
-      herramientas, productos eléctricos, hidráulicos,
-      pinturas, construcción y mucho más.
+      Encuentra todo para tu obra y construcción: materiales, herramientas,
+      productos eléctricos, hidráulicos, pinturas y mucho más.
     </p>
 
     <div class="hero-buttons">
@@ -481,119 +485,19 @@
 
   </section>
 
-  <!-- CATEGORIAS DESTACADAS -->
-  <main class="content-wrap">
-
+  <main class="content-wrap best-sellers" aria-labelledby="bestSellersTitle">
     <div class="section-top">
-
-      <h2 class="section-title">
-        Líneas destacadas
-      </h2>
-
-      <a href="catalogo.html" class="view-all-btn">
-        Ver todo
-      </a>
-
-    </div>
-
-    <div class="categories-grid">
-
-      <a href="linea.html?linea=Cementos" class="category-card">
-        <div class="cat-dot"></div>
-        <h2>Cementos</h2>
-      </a>
-
-      <a href="linea.html?linea=VARILLA" class="category-card">
-        <div class="cat-dot"></div>
-        <h2>Varilla</h2>
-      </a>
-
-      <a href="linea.html?linea=Electrico" class="category-card">
-        <div class="cat-dot"></div>
-        <h2>Material eléctrico</h2>
-      </a>
-
-      <a href="linea.html?linea=Cable" class="category-card">
-        <div class="cat-dot"></div>
-        <h2>Cables</h2>
-      </a>
-
-      <a href="linea.html?linea=PISOS Y LOSETAS" class="category-card">
-        <div class="cat-dot"></div>
-        <h2>PISOS Y LOSETAS</h2>
-      </a>
-
-      <a href="linea.html?linea=HERRAMIENTAS" class="category-card">
-        <div class="cat-dot"></div>
-        <h2>Herramientas</h2>
-      </a>
-
-    </div>
-
-  </main>
-
-  <!-- PROMOCIONALES -->
-
-  <section class="promo-section">
-
-    <div class="section-top">
-
-      <h2 class="section-title">
-        Promocionales
-      </h2>
-
-    </div>
-
-    <div class="promo-carousel">
-
-      <button class="promo-btn promo-prev" aria-label="Anterior">❮</button>
-
-      <div class="promo-track-wrapper">
-
-        <div class="promo-track">
-
-          <a href="#" class="promo-card">
-            <img src="images/promocional1.png" alt="Promoción">
-          </a>
-
-          <a href="#" class="promo-card">
-            <img src="images/promocional2.png" alt="Promoción">
-          </a>
-
-          <a href="#" class="promo-card">
-            <img src="images/promocional3.png" alt="Promoción">
-          </a>
-
-          <a href="#" class="promo-card">
-            <img src="images/promocional4.png" alt="Promoción">
-          </a>
-
-          <a href="#" class="promo-card">
-            <img src="images/promocional5.png" alt="Promoción">
-          </a>
-
-          <a href="#" class="promo-card">
-            <img src="images/promocional6.png" alt="Promoción">
-          </a>
-
-        </div>
-
+      <h2 class="section-title" id="bestSellersTitle">Los más vendidos</h2>
+      <div class="carousel-controls">
+        <button type="button" id="productsPrev" aria-label="Ver productos anteriores" aria-controls="bestSellersTrack" disabled>←</button>
+        <button type="button" id="productsNext" aria-label="Ver productos siguientes" aria-controls="bestSellersTrack" disabled>→</button>
       </div>
-
-      <button class="promo-btn promo-next" aria-label="Siguiente">❯</button>
-
     </div>
-
-    <div class="promo-dots">
-      <span class="promo-dot active"></span>
-      <span class="promo-dot"></span>
-      <span class="promo-dot"></span>
-      <span class="promo-dot"></span>
-      <span class="promo-dot"></span>
-      <span class="promo-dot"></span>
-    </div>
-
-  </section>
+    <p id="bestSellersStatus" role="status">Cargando productos…</p>
+    <button type="button" id="bestSellersRetry" class="primary-btn" hidden>Reintentar</button>
+    <div id="bestSellersTrack" class="best-sellers-track" role="region" aria-label="Productos más vendidos" tabindex="0"></div>
+  </main>
+  <script src="mas-vendidos.js" defer></script>
 
   <!-- FOOTER -->
 
@@ -757,65 +661,6 @@
 
       });
 
-      // CARRUSEL DE PROMOCIONALES
-
-      const promoTrack = document.querySelector(".promo-track");
-      const promoPrev = document.querySelector(".promo-prev");
-      const promoNext = document.querySelector(".promo-next");
-      const promoDots = document.querySelectorAll(".promo-dot");
-      const promoCards = document.querySelectorAll(".promo-card");
-
-      if (promoTrack && promoPrev && promoNext && promoCards.length > 0) {
-
-        const getScrollAmount = () => {
-
-          const firstCard = promoCards[0];
-          const cardWidth = firstCard.getBoundingClientRect().width;
-          const styles = getComputedStyle(promoTrack);
-          const gap = parseFloat(styles.columnGap || styles.gap || 0);
-
-          return cardWidth + gap;
-
-        };
-
-        const updateDots = () => {
-
-          const cardWidth = promoCards[0].getBoundingClientRect().width;
-          const gap = parseFloat(getComputedStyle(promoTrack).gap || 0);
-          const slideWidth = cardWidth + gap;
-          const currentIndex = Math.round(promoTrack.scrollLeft / slideWidth);
-
-          promoDots.forEach((dot, index) => {
-
-            dot.classList.toggle("active", index === currentIndex);
-
-          });
-
-        };
-
-        promoPrev.addEventListener("click", () => {
-
-          promoTrack.scrollBy({
-            left: -getScrollAmount(),
-            behavior: "smooth"
-          });
-
-        });
-
-        promoNext.addEventListener("click", () => {
-
-          promoTrack.scrollBy({
-            left: getScrollAmount(),
-            behavior: "smooth"
-          });
-
-        });
-
-        promoTrack.addEventListener("scroll", updateDots);
-
-        window.addEventListener("resize", updateDots);
-
-      }
 
     });
 

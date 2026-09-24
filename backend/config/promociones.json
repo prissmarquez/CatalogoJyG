@@ -1,0 +1,9 @@
+[
+  {"titulo":"Tinaco IUSA negro 1100 L","linea":"TINACOS, CISTERNAS Y ACCESORIOS","claves":["267333"],"precioEspecial":1999},
+  {"titulo":"Tinaco beige alta 1100 L","linea":"TINACOS, CISTERNAS Y ACCESORIOS","claves":["267338"],"descuento":10},
+  {"titulo":"Calentador IUSA instantáneo Primo 6 L","linea":"Calentadores","claves":["616630"],"descuento":10},
+  {"titulo":"Calentadores IUSA","linea":"Calentadores","contieneTodos":["CALENTADOR","IUSA"],"excluirClaves":["616630"],"descuento":5},
+  {"titulo":"Impermeabilizantes","linea":"IMPERMEABILIZANTES","contieneTodos":["IMPERMEABILIZANTE"],"descuento":15},
+  {"titulo":"Escaleras Cuprum","linea":"ESCALERAS","contieneTodos":["ESCALERA","CUPRUM"],"descuento":5},
+  {"titulo":"Compresor Goni 930P · 2 HP · 24 L","linea":"Ferreteria","claves":["02497"],"descuento":5}
+]

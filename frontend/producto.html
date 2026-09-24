@@ -45,22 +45,22 @@
 
     </nav>
 
+  <nav class="back-navigation" aria-label="Regresar">
+    <a class="back-link" href="catalogo.html" data-back-link><span aria-hidden="true">←</span> Volver</a>
+  </nav>
+  <script src="navegacion.js" defer></script>
+
     <!-- PRODUCTO -->
 
-    <main class="product-page">
+    <p id="productStatus" class="product-status" role="status">Cargando producto…</p>
+    <main class="product-page" id="productDetails" hidden>
 
         <!-- IMAGEN -->
 
         <div class="product-gallery">
 
-            <!-- <img id="productImage" src="" alt="Producto">
-             <img id="productImage" src="" alt="Producto" onerror="this.style.display='none'"> -->
-             <img
-    id="productImage"
-    src=""
-    alt="Producto"
-    style="width:100%; max-width:500px; border-radius:20px;"
->
+            <img id="productImage" alt="" hidden style="width:100%; max-width:500px; border-radius:20px;">
+            <p id="productImagePlaceholder" class="image-placeholder" hidden>Imagen no disponible</p>
 
         </div>
 
