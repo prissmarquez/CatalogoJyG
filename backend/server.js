@@ -553,7 +553,23 @@ app.get("/api/productos/:hoja", async (req, res) => {
 // ACTUALIZAR INDICE DE BUSQUEDA
 // ==========================================
 
-app.get("/api/actualizar-busqueda", async (req, res) => {
+let actualizandoIndice = false;
+
+app.get("/api/actualizar-busqueda", (req, res) => {
+    res.set("Allow", "POST").status(405).json({ error: "Usa POST con autorización para actualizar el índice." });
+});
+
+app.post("/api/actualizar-busqueda", async (req, res) => {
+    const token = process.env.ADMIN_TOKEN;
+    if (!token) return res.status(503).json({ error: "Actualización administrativa no configurada." });
+    const recibido = Buffer.from(req.get("Authorization") || "");
+    const esperado = Buffer.from(`Bearer ${token}`);
+    if (recibido.length !== esperado.length ||
+        !require("crypto").timingSafeEqual(recibido, esperado)) {
+        return res.status(401).json({ error: "No autorizado." });
+    }
+    if (actualizandoIndice) return res.status(409).json({ error: "Ya hay una actualización en curso." });
+    actualizandoIndice = true;
 
     try {
 
@@ -579,6 +595,8 @@ app.get("/api/actualizar-busqueda", async (req, res) => {
             error: error.message
         });
 
+    } finally {
+        actualizandoIndice = false;
     }
 });
 
@@ -639,10 +657,12 @@ app.get("/api/busqueda", async (req, res) => {
 async function iniciarServidor() {
     const PORT = process.env.PORT || 3000;
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
 }
+
+app.get("/health", (req, res) => res.json({ ok: true }));
 
 // Mostrar el frontend para cualquier ruta
 app.use((req, res) => {
