@@ -35,6 +35,7 @@
                     media.append(placeholder);
                     if (producto.Imagenes) {
                         const img = document.createElement('img');
+                        img.referrerPolicy = "no-referrer";
                         img.alt = producto.Nombre;
                         img.loading = 'lazy';
                         img.addEventListener('error', () => { img.hidden = true; placeholder.hidden = false; });

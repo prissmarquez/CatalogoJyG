@@ -114,6 +114,7 @@ async function cargarProducto() {
         document.getElementById("productCode").textContent = producto.Clave;
         const img = document.getElementById("productImage");
         const placeholder = document.getElementById("productImagePlaceholder");
+        img.referrerPolicy = "no-referrer";
         img.alt = producto.Nombre || "Imagen del producto";
         img.onerror = () => { img.hidden = true; placeholder.hidden = false; };
         if (producto.Imagenes) {

@@ -37,6 +37,7 @@
                 media.append(placeholder);
                 if (producto.Imagenes) {
                     const image = document.createElement("img");
+                    image.referrerPolicy = "no-referrer";
                     image.alt = producto.Nombre || "Producto";
                     image.loading = "lazy";
                     image.src = producto.Imagenes;
