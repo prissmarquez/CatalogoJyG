@@ -54,11 +54,10 @@
     }
   },
   {
-    "titulo": "Impermeabilizantes · todas las presentaciones",
+    "titulo": "Impermeabilizantes",
     "linea": "IMPERMEABILIZANTES",
     "claves": [
       "001752",
-      "007402",
       "001751",
       "04645",
       "04644",
@@ -81,7 +80,6 @@
     "descuento": 15,
     "preciosLista": {
       "001752": 1350,
-      "007402": 12045,
       "001751": 2467,
       "04645": 365,
       "04644": 1265,
@@ -100,6 +98,17 @@
       "008212": 1532,
       "001762": 2079,
       "001753": 1350
+    }
+  },
+  {
+    "titulo": "Impermeabilizante ACRITEM · tambo de 200 L",
+    "linea": "IMPERMEABILIZANTES",
+    "claves": [
+      "007402"
+    ],
+    "descuento": 25,
+    "preciosLista": {
+      "007402": 12045
     }
   },
   {
