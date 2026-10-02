@@ -1383,6 +1383,10 @@ body {
   font-size: clamp(40px, 6vw, 64px);
   margin-bottom: 16px;
 }
+.promotions-title-highlight {
+  font-weight: 900;
+  font-style: italic;
+}
 .promotions-intro p {
   color: var(--texto-2);
   line-height: 1.7;
