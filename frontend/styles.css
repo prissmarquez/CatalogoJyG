@@ -1383,6 +1383,9 @@ body {
   font-size: clamp(40px, 6vw, 64px);
   margin-bottom: 16px;
 }
+.promotions-title-lead {
+  color: var(--azul);
+}
 .promotions-title-highlight {
   font-weight: 900;
   font-style: italic;
