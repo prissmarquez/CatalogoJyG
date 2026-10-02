@@ -470,9 +470,13 @@ app.get("/api/promociones", async (req, res) => {
                 return oferta.contieneTodos.every(texto => normalizarNombre(producto.Nombre).includes(texto));
             }).map(producto => ({
                 ...producto, linea: oferta.linea,
-                descuento: oferta.descuento, precioEspecial: oferta.precioEspecial
+                descuento: oferta.descuento, beneficio: oferta.beneficio,
+                precioLista: oferta.preciosLista?.[normalizarClave(producto.Clave)] ?? null,
+                precioPromocion: Number.isFinite(oferta.preciosLista?.[normalizarClave(producto.Clave)]) && Number.isFinite(oferta.descuento)
+                    ? Math.round(oferta.preciosLista[normalizarClave(producto.Clave)] * (100 - oferta.descuento)) / 100
+                    : null
             }));
-            grupos.push({ titulo: oferta.titulo, productos });
+            grupos.push({ titulo: oferta.titulo, nota: oferta.nota, productos });
         }
         res.json({ grupos });
     } catch (error) {

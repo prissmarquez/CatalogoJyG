@@ -2,7 +2,7 @@
     const container = document.getElementById('promotionsProducts');
     const status = document.getElementById('promotionsStatus');
     const retry = document.getElementById('promotionsRetry');
-    const currency = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    const currency = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     async function load() {
         status.textContent = 'Cargando promociones…';
         retry.hidden = true;
@@ -13,7 +13,7 @@
             container.replaceChildren();
             let total = 0;
             for (const grupo of grupos) {
-                if (!grupo.productos.length) continue;
+                if (!grupo.productos.length && !grupo.nota) continue;
                 const section = document.createElement('section');
                 section.className = 'promotion-group';
                 const heading = document.createElement('h2');
@@ -26,7 +26,7 @@
                     card.href = `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
                     const badge = document.createElement('span');
                     badge.className = 'discount-badge';
-                    badge.textContent = producto.precioEspecial != null ? 'Precio especial' : `${producto.descuento}% de descuento`;
+                    badge.textContent = producto.beneficio || `${producto.descuento}% de descuento`;
                     const media = document.createElement('div');
                     media.className = 'best-seller-image';
                     const placeholder = document.createElement('span');
@@ -47,16 +47,37 @@
                     const sku = document.createElement('p');
                     sku.textContent = `Clave: ${producto.Clave}`;
                     card.append(badge, media, name, sku);
-                    if (producto.precioEspecial != null) {
+                    if (producto.precioLista != null && producto.precioPromocion != null) {
+                        const original = document.createElement('del');
+                        original.className = 'offer-original-price';
+                        original.textContent = currency.format(producto.precioLista);
+                        original.setAttribute('aria-label', `Precio de lista: ${currency.format(producto.precioLista)}`);
                         const price = document.createElement('strong');
                         price.className = 'offer-price';
-                        price.textContent = currency.format(producto.precioEspecial);
+                        price.textContent = currency.format(producto.precioPromocion);
+                        price.setAttribute('aria-label', `Precio con descuento: ${currency.format(producto.precioPromocion)}`);
+                        card.append(original, price);
+                    } else if (producto.precioLista != null) {
+                        const price = document.createElement('strong');
+                        price.className = 'offer-price';
+                        price.textContent = currency.format(producto.precioLista);
                         card.append(price);
+                    } else {
+                        const pending = document.createElement('p');
+                        pending.className = 'offer-price-pending';
+                        pending.textContent = 'Consulta el precio de este producto';
+                        card.append(pending);
                     }
                     grid.append(card);
                     total++;
                 }
-                section.append(heading, grid);
+                section.append(heading);
+                if (grupo.nota) {
+                    const note = document.createElement('p');
+                    note.textContent = grupo.nota;
+                    section.append(note);
+                }
+                section.append(grid);
                 container.append(section);
             }
             status.textContent = total ? '' : 'No hay promociones disponibles por el momento.';
