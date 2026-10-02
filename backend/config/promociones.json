@@ -505,9 +505,32 @@
   {
     "titulo": "Cisternas en existencia",
     "linea": "TINACOS, CISTERNAS Y ACCESORIOS",
-    "claves": [],
+    "claves": [
+      "01860",
+      "02006",
+      "06987",
+      "08311",
+      "08052",
+      "04125",
+      "267744",
+      "269212",
+      "369032",
+      "269213"
+    ],
     "descuento": 5,
-    "nota": "5% de descuento en cisternas en existencia. Consulta disponibilidad."
+    "nota": "5% de descuento únicamente en las cisternas seleccionadas que se muestran aquí.",
+    "preciosLista": {
+      "267744": 8778,
+      "269212": 9878,
+      "269213": 16900,
+      "369032": 16115,
+      "01860": 8635,
+      "02006": 9178,
+      "06987": 19350,
+      "08311": 8201,
+      "08052": 15250,
+      "04125": 14950
+    }
   },
   {
     "titulo": "Compresor Goni 930P · 2 HP · 24 L",
