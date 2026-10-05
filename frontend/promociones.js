@@ -48,6 +48,13 @@
                     sku.textContent = `Clave: ${producto.Clave}`;
                     card.append(badge, media, name, sku);
                     if (producto.precioEspecial != null) {
+                        if (producto.precioLista != null) {
+                            const original = document.createElement('del');
+                            original.className = 'offer-original-price';
+                            original.textContent = currency.format(producto.precioLista);
+                            original.setAttribute('aria-label', `Precio de lista: ${currency.format(producto.precioLista)}`);
+                            card.append(original);
+                        }
                         const price = document.createElement('strong');
                         price.className = 'offer-price';
                         price.textContent = currency.format(producto.precioEspecial);
