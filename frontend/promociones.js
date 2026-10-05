@@ -47,7 +47,13 @@
                     const sku = document.createElement('p');
                     sku.textContent = `Clave: ${producto.Clave}`;
                     card.append(badge, media, name, sku);
-                    if (producto.precioLista != null && producto.precioPromocion != null) {
+                    if (producto.precioEspecial != null) {
+                        const price = document.createElement('strong');
+                        price.className = 'offer-price';
+                        price.textContent = currency.format(producto.precioEspecial);
+                        price.setAttribute('aria-label', `Precio especial: ${currency.format(producto.precioEspecial)}`);
+                        card.append(price);
+                    } else if (producto.precioLista != null && producto.precioPromocion != null) {
                         const original = document.createElement('del');
                         original.className = 'offer-original-price';
                         original.textContent = currency.format(producto.precioLista);

@@ -1,5 +1,17 @@
 [
   {
+    "titulo": "Cable eléctrico de un polo IUSA calibre 12",
+    "linea": "Cable",
+    "claves": ["397455", "397454", "397456", "397457"],
+    "beneficio": "Precio especial",
+    "preciosEspeciales": {
+      "397455": 14.65,
+      "397454": 14.65,
+      "397456": 14.65,
+      "397457": 14.65
+    }
+  },
+  {
     "titulo": "Tinaco IUSA negro 1100 L",
     "linea": "TINACOS, CISTERNAS Y ACCESORIOS",
     "claves": [

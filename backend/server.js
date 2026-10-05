@@ -471,6 +471,7 @@ app.get("/api/promociones", async (req, res) => {
             }).map(producto => ({
                 ...producto, linea: oferta.linea,
                 descuento: oferta.descuento, beneficio: oferta.beneficio,
+                precioEspecial: oferta.preciosEspeciales?.[normalizarClave(producto.Clave)] ?? null,
                 precioLista: oferta.preciosLista?.[normalizarClave(producto.Clave)] ?? null,
                 precioPromocion: Number.isFinite(oferta.preciosLista?.[normalizarClave(producto.Clave)]) && Number.isFinite(oferta.descuento)
                     ? Math.round(oferta.preciosLista[normalizarClave(producto.Clave)] * (100 - oferta.descuento)) / 100
