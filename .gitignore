@@ -14,3 +14,7 @@ npm-debug.log
 
 # Variables de entorno
 backend/.env
+
+#data creada
+data/
+
