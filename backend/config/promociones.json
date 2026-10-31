@@ -11,7 +11,7 @@
     }
   },
   {
-    "titulo": "Tinaco IUSA beige 1100 L",
+    "titulo": "Tinaco IUSA tricapa beige 1100 L con accesorios y filtro alta",
     "linea": "TINACOS, CISTERNAS Y ACCESORIOS",
     "claves": [
       "267338"
@@ -19,27 +19,6 @@
     "descuento": 10,
     "preciosLista": {
       "267338": 3175
-    }
-  },
-  {
-    "titulo": "Calentadores solares IUSA",
-    "linea": "Calentadores",
-    "claves": [
-      "618098",
-      "616880",
-      "618099",
-      "616959",
-      "616960",
-      "213075"
-    ],
-    "descuento": 5,
-    "preciosLista": {
-      "213075": 12250,
-      "616880": 5990,
-      "616959": 4385,
-      "616960": 4740,
-      "618098": 6935,
-      "618099": 7950
     }
   },
   {
@@ -54,65 +33,7 @@
     }
   },
   {
-    "titulo": "Impermeabilizantes",
-    "linea": "IMPERMEABILIZANTES",
-    "claves": [
-      "001752",
-      "001751",
-      "04645",
-      "04644",
-      "04653",
-      "04641",
-      "04640",
-      "04639",
-      "04638",
-      "04637",
-      "04635",
-      "04642",
-      "04804",
-      "04802",
-      "04800",
-      "04803",
-      "008212",
-      "001762",
-      "001753"
-    ],
-    "descuento": 15,
-    "preciosLista": {
-      "001752": 1350,
-      "001751": 2467,
-      "04645": 365,
-      "04644": 1265,
-      "04653": 365,
-      "04641": 572,
-      "04640": 2189,
-      "04639": 2189,
-      "04638": 572,
-      "04637": 3179,
-      "04635": 3179,
-      "04642": 1265,
-      "04804": 2395,
-      "04802": 599,
-      "04800": 2365,
-      "04803": 395,
-      "008212": 1532,
-      "001762": 2079,
-      "001753": 1350
-    }
-  },
-  {
-    "titulo": "Impermeabilizante ACRITEM · tambo de 200 L",
-    "linea": "IMPERMEABILIZANTES",
-    "claves": [
-      "007402"
-    ],
-    "descuento": 25,
-    "preciosLista": {
-      "007402": 12045
-    }
-  },
-  {
-    "titulo": "Pintura vinílica ITP",
+    "titulo": "Pintura Acuario vinílica ITP Classic",
     "linea": "PINTURA ITP/CLASSIC",
     "claves": [
       "001645",
@@ -180,7 +101,7 @@
       "01163",
       "426"
     ],
-    "descuento": 20,
+    "descuento": 10,
     "preciosLista": {
       "425": 495,
       "426": 1674,
@@ -249,7 +170,7 @@
     }
   },
   {
-    "titulo": "Pintura vinílica MIL",
+    "titulo": "Pintura Acuario vinílica MIL",
     "linea": "PINTURA COVER MIL",
     "claves": [
       "001538",
@@ -274,7 +195,7 @@
       "02631",
       "02618"
     ],
-    "descuento": 20,
+    "descuento": 10,
     "preciosLista": {
       "001538": 649,
       "001539": 2529,
@@ -299,19 +220,19 @@
     }
   },
   {
-    "titulo": "Acuacover · compra una cubeta y recibe un galón",
+    "titulo": "Pintura Acuario Acuacover",
     "linea": "PINTURA ACUACOVER",
     "claves": [
       "001565",
       "001560",
       "001563"
     ],
-    "beneficio": "Galón de regalo al comprar una cubeta",
     "preciosLista": {
       "001565": 1209,
       "001560": 1209,
       "001563": 1209
-    }
+    },
+    "descuento": 10
   },
   {
     "titulo": "Tarjas · excepto marca Foset",
@@ -360,88 +281,28 @@
     ]
   },
   {
-    "titulo": "Tinas de baño",
+    "titulo": "Tinas participantes · monomando de regalo o bono de $1,000",
     "linea": "TINAS HIDROMASAJE Y ACCESORIOS",
     "claves": [
-      "THANT6-01",
-      "THCOZ-01",
-      "THTAP-01",
-      "THTEN-02",
-      "THCOZ-02",
+      "CAN-001",
+      "THOZ-01",
       "AQCANT5206"
     ],
-    "descuento": 5,
+    "beneficio": "Monomando Rugo 34-MQ de regalo o bono de $1,000",
+    "nota": "En la compra de una tina participante (CAN-001, THOZ-01 o AQCANT5206), recibe un monomando Rugo 34-MQ de regalo. Si no requieres el monomando o prefieres otro modelo, se otorga un bono de $1,000 para la compra de otro producto; si el costo es mayor, deberás cubrir la diferencia correspondiente.",
     "preciosLista": {
-      "THANT6-01": 24150,
-      "THCOZ-01": 13950,
-      "THTAP-01": 32999,
-      "THTEN-02": 12544,
-      "THCOZ-02": 14450,
       "AQCANT5206": 17950
     }
   },
   {
-    "titulo": "Muebles de baño",
-    "linea": "MUEBLES DE BAÑO Y ACCESORIOS",
+    "titulo": "Calentadores IUSA Thermo Power de 5, 7 y 9 L",
+    "linea": "Calentadores",
     "claves": [
-      "JGO08221",
-      "08819",
-      "08820",
-      "08822",
-      "JGO08223",
-      "JGO08220",
-      "08821"
+      "210836",
+      "210838",
+      "210840"
     ],
-    "descuento": 5,
-    "preciosLista": {
-      "JGO08221": 3995,
-      "08819": 4590,
-      "08820": 4980,
-      "08822": 4190,
-      "JGO08223": 3980,
-      "JGO08220": 3980,
-      "08821": 6790
-    }
-  },
-  {
-    "titulo": "Cisternas en existencia",
-    "linea": "TINACOS, CISTERNAS Y ACCESORIOS",
-    "claves": [
-      "01860",
-      "02006",
-      "06987",
-      "08311",
-      "08052",
-      "04125",
-      "267744",
-      "269212",
-      "369032",
-      "269213"
-    ],
-    "descuento": 5,
-    "nota": "5% de descuento únicamente en las cisternas seleccionadas que se muestran aquí.",
-    "preciosLista": {
-      "267744": 8778,
-      "269212": 9878,
-      "269213": 16900,
-      "369032": 16115,
-      "01860": 8635,
-      "02006": 9178,
-      "06987": 19350,
-      "08311": 8201,
-      "08052": 15250,
-      "04125": 14950
-    }
-  },
-  {
-    "titulo": "Compresor Goni 930P · 2 HP · 24 L",
-    "linea": "Ferreteria",
-    "claves": [
-      "02497"
-    ],
-    "descuento": 5,
-    "preciosLista": {
-      "02497": 3050
-    }
+    "beneficio": "Kit básico de instalación de regalo",
+    "nota": "En la compra de un calentador IUSA Thermo Power de 5, 7 o 9 L (210836, 210838 o 210840), recibe un kit básico de instalación para el calentador seleccionado (clave 267854)."
   }
 ]
