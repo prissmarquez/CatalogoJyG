@@ -477,7 +477,14 @@ app.get("/api/promociones", async (req, res) => {
                     ? Math.round(oferta.preciosLista[normalizarClave(producto.Clave)] * (100 - oferta.descuento)) / 100
                     : null
             }));
-            grupos.push({ titulo: oferta.titulo, nota: oferta.nota, productos });
+            const regalos = [];
+            if (oferta.regalo) {
+                const { linea, clave } = oferta.regalo;
+                if (!hojas.has(linea)) hojas.set(linea, await obtenerProductosPorHoja(linea));
+                const regalo = hojas.get(linea).find(p => normalizarClave(p.Clave) === clave);
+                if (regalo) regalos.push({ ...regalo, linea, esRegalo: true });
+            }
+            grupos.push({ titulo: oferta.titulo, nota: oferta.nota, productos, regalos });
         }
         res.json({ grupos });
     } catch (error) {

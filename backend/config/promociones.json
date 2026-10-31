@@ -281,17 +281,21 @@
     ]
   },
   {
-    "titulo": "Tinas participantes · monomando de regalo o bono de $1,000",
+    "titulo": "Tinas participantes",
     "linea": "TINAS HIDROMASAJE Y ACCESORIOS",
     "claves": [
       "CAN-001",
       "THOZ-01",
       "AQCANT5206"
     ],
-    "beneficio": "Monomando Rugo 34-MQ de regalo o bono de $1,000",
-    "nota": "En la compra de una tina participante (CAN-001, THOZ-01 o AQCANT5206), recibe un monomando Rugo 34-MQ de regalo. Si no requieres el monomando o prefieres otro modelo, se otorga un bono de $1,000 para la compra de otro producto; si el costo es mayor, deberás cubrir la diferencia correspondiente.",
+    "beneficio": "Monomando de regalo",
+    "nota": "Llévate un monomando Rugo 34-MQ o un bono de $1,000 para otro producto. Si cuesta más, paga la diferencia.",
     "preciosLista": {
       "AQCANT5206": 17950
+    },
+    "regalo": {
+      "linea": "Griferia",
+      "clave": "34MQ"
     }
   },
   {
@@ -303,6 +307,10 @@
       "210840"
     ],
     "beneficio": "Kit básico de instalación de regalo",
-    "nota": "En la compra de un calentador IUSA Thermo Power de 5, 7 o 9 L (210836, 210838 o 210840), recibe un kit básico de instalación para el calentador seleccionado (clave 267854)."
+    "nota": "Incluye gratis un kit básico de instalación (267854).",
+    "regalo": {
+      "linea": "Calentadores",
+      "clave": "267854"
+    }
   }
 ]

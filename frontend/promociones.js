@@ -20,13 +20,13 @@
                 heading.textContent = grupo.titulo;
                 const grid = document.createElement('div');
                 grid.className = 'promotion-products-grid';
-                for (const producto of grupo.productos) {
+                for (const producto of [...grupo.productos, ...(grupo.regalos || [])]) {
                     const card = document.createElement('a');
                     card.className = 'best-seller-card offer-card';
                     card.href = `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
                     const badge = document.createElement('span');
                     badge.className = 'discount-badge';
-                    badge.textContent = producto.beneficio || `${producto.descuento}% de descuento`;
+                    badge.textContent = producto.esRegalo ? 'Artículo de regalo' : producto.beneficio || `${producto.descuento}% de descuento`;
                     const media = document.createElement('div');
                     media.className = 'best-seller-image';
                     const placeholder = document.createElement('span');
@@ -47,7 +47,12 @@
                     const sku = document.createElement('p');
                     sku.textContent = `Clave: ${producto.Clave}`;
                     card.append(badge, media, name, sku);
-                    if (producto.precioEspecial != null) {
+                    if (producto.esRegalo) {
+                        const gift = document.createElement('strong');
+                        gift.className = 'offer-price';
+                        gift.textContent = 'Gratis con tu compra participante';
+                        card.append(gift);
+                    } else if (producto.precioEspecial != null) {
                         if (producto.precioLista != null) {
                             const original = document.createElement('del');
                             original.className = 'offer-original-price';
