@@ -2,9 +2,7 @@
   {
     "titulo": "Tinaco IUSA negro 1100 L",
     "linea": "TINACOS, CISTERNAS Y ACCESORIOS",
-    "claves": [
-      "267333"
-    ],
+    "claves": ["267333"],
     "descuento": 10,
     "preciosLista": {
       "267333": 2550
@@ -13,9 +11,7 @@
   {
     "titulo": "Tinaco IUSA tricapa beige 1100 L con accesorios y filtro alta",
     "linea": "TINACOS, CISTERNAS Y ACCESORIOS",
-    "claves": [
-      "267338"
-    ],
+    "claves": ["267338"],
     "descuento": 10,
     "preciosLista": {
       "267338": 3175
@@ -24,9 +20,7 @@
   {
     "titulo": "Calentador IUSA instantáneo Primo 6 L",
     "linea": "Calentadores",
-    "claves": [
-      "616630"
-    ],
+    "claves": ["616630"],
     "descuento": 10,
     "preciosLista": {
       "616630": 1599
@@ -222,11 +216,7 @@
   {
     "titulo": "Pintura Acuario Acuacover",
     "linea": "PINTURA ACUACOVER",
-    "claves": [
-      "001565",
-      "001560",
-      "001563"
-    ],
+    "claves": ["001565", "001560", "001563"],
     "preciosLista": {
       "001565": 1209,
       "001560": 1209,
@@ -283,15 +273,13 @@
   {
     "titulo": "Tinas participantes",
     "linea": "TINAS HIDROMASAJE Y ACCESORIOS",
-    "claves": [
-      "CAN-001",
-      "THOZ-01",
-      "AQCANT5206"
-    ],
+    "claves": ["CAN-001", "THCOZ-01", "AQCANT5206"],
     "beneficio": "Monomando de regalo",
     "nota": "Llévate un monomando Rugo 34-MQ o un bono de $1,000 para otro producto. Si cuesta más, paga la diferencia.",
     "preciosLista": {
-      "AQCANT5206": 17950
+      "AQCANT5206": 17950,
+      "THCOZ-01": 13950,
+      "CAN-001": 16615
     },
     "regalo": {
       "linea": "Griferia",
@@ -301,13 +289,14 @@
   {
     "titulo": "Calentadores IUSA Thermo Power de 5, 7 y 9 L",
     "linea": "Calentadores",
-    "claves": [
-      "210836",
-      "210838",
-      "210840"
-    ],
+    "claves": ["210836", "210838", "210840"],
     "beneficio": "Kit básico de instalación de regalo",
     "nota": "Incluye gratis un kit básico de instalación (267854).",
+    "preciosLista": {
+      "210836": 3990,
+      "210838": 4190,
+      "210840": 4950
+    },
     "regalo": {
       "linea": "Calentadores",
       "clave": "267854"
