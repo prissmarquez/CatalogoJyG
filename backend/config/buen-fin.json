@@ -1,0 +1,62 @@
+[
+  {
+    "titulo": "Tuberías y conexiones de cobre",
+    "buscar": "COBRE",
+    "linea": "MATERIAL COBRE"
+  },
+  {
+    "titulo": "Tuberías y conexiones PPR",
+    "buscar": "PPR"
+  },
+  {
+    "titulo": "Herramientas Urrea",
+    "buscar": "URREA",
+    "herramientas": true
+  },
+  {
+    "titulo": "Herramientas Truper",
+    "buscar": "TRUPER",
+    "herramientas": true
+  },
+  {
+    "titulo": "Herramientas Iusa",
+    "buscar": "IUSA",
+    "herramientas": true
+  },
+  {
+    "titulo": "Pintura vinílica ITP Classic",
+    "linea": "PINTURA ITP/CLASSIC"
+  },
+  {
+    "titulo": "Pintura vinílica MIL",
+    "linea": "PINTURA COVER MIL"
+  },
+  {
+    "titulo": "Pintura Acuacover",
+    "linea": "PINTURA ACUACOVER"
+  },
+  {
+    "titulo": "Muebles de baño",
+    "claves": [
+      "08819",
+      "08820",
+      "08822",
+      "JGO08223",
+      "JGO08220",
+      "08821",
+      "JGO08221",
+      "47907"
+    ]
+  },
+  {
+    "titulo": "Espejos",
+    "claves": [
+      "ES822",
+      "08834",
+      "08823",
+      "EL8060B",
+      "08833",
+      "4-1004367"
+    ]
+  }
+]

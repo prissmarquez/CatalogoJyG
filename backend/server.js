@@ -493,6 +493,50 @@ app.get("/api/promociones", async (req, res) => {
     }
 });
 
+// El Buen Fin: una referencia por línea y las claves específicas del folleto.
+// Los precios se incorporarán cuando esté disponible la exportación de Microsip.
+const buenFin = require("./config/buen-fin.json");
+app.get("/api/buen-fin", async (req, res) => {
+    try {
+        await asegurarCacheBusqueda();
+        const normalizar = valor => String(valor || "").normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        const hojas = new Map();
+        const grupos = [];
+        for (const grupo of buenFin) {
+            const referencias = grupo.claves
+                ? grupo.claves.map(clave => cacheBusqueda.find(p => normalizarClave(p.Clave) === clave)).filter(Boolean)
+                : cacheBusqueda.filter(p => {
+                    if (grupo.linea && normalizar(p.linea) !== normalizar(grupo.linea)) return false;
+                    if (grupo.herramientas && !normalizar(p.linea).includes("HERRAMIENT")) return false;
+                    return !grupo.buscar || new RegExp(`\\b${grupo.buscar}\\b`).test(normalizar(`${p.Nombre} ${p.linea}`));
+                });
+            const productos = [];
+            let incompleto = grupo.claves ? referencias.length < grupo.claves.length : referencias.length === 0;
+            for (const ref of referencias) {
+                try {
+                    if (!hojas.has(ref.linea)) hojas.set(ref.linea, obtenerProductosPorHoja(ref.linea));
+                    const lista = await hojas.get(ref.linea);
+                    const producto = lista.find(p => normalizarClave(p.Clave) === normalizarClave(ref.Clave));
+                    if (!producto) { incompleto = true; continue; }
+                    // Solo datos de catálogo: no publicar precios sin confirmar.
+                    productos.push({ Clave: producto.Clave, Nombre: producto.Nombre,
+                        Imagenes: producto.Imagenes, linea: ref.linea });
+                    if (!grupo.claves) break;
+                } catch (error) {
+                    incompleto = true;
+                    console.error("Buen Fin:", ref.linea, error.message);
+                }
+            }
+            grupos.push({ titulo: grupo.titulo, representativa: !grupo.claves, productos, incompleto });
+        }
+        res.json({ grupos });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "No se pudieron cargar los productos de Buen Fin." });
+    }
+});
+
 app.get("/api/mas-vendidos", async (req, res) => {
     try {
         await asegurarCacheBusqueda();
