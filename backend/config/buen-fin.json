@@ -28,7 +28,13 @@
           }
         ]
       }
-    ]
+    ],
+    "imagenSeleccion": {
+      "claves": [
+        "001645"
+      ],
+      "nombre": "ACUARIO"
+    }
   },
   {
     "titulo": "Herramientas",
@@ -70,7 +76,10 @@
         ],
         "amex": 10
       }
-    ]
+    ],
+    "imagenSeleccion": {
+      "nombre": "MARTILLO"
+    }
   },
   {
     "titulo": "Tuberías y conexiones",

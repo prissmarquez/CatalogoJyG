@@ -512,7 +512,12 @@ app.get("/api/buen-fin", async (req, res) => {
                     try {
                         if (!hojas.has(linea)) hojas.set(linea, obtenerProductosPorHoja(linea));
                         const lista = await hojas.get(linea);
-                        const referencia = lista.find(producto => producto.Imagenes);
+                        const seleccion = configuracion.imagenSeleccion;
+                        const candidatos = lista.filter(producto => producto.Imagenes);
+                        const referencia = seleccion
+                            ? candidatos.find(producto => seleccion.claves?.includes(normalizarClave(producto.Clave)))
+                                || candidatos.find(producto => seleccion.nombre && normalizar(producto.Nombre).includes(normalizar(seleccion.nombre)))
+                            : candidatos[0];
                         if (referencia) { imagen = referencia.Imagenes; break; }
                     } catch (error) {
                         console.error("Imagen de línea Buen Fin:", linea, error.message);
