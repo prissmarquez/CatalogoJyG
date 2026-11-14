@@ -8,19 +8,39 @@
         if (text) node.textContent = text;
         return node;
     }
+    function terms(grupo) {
+        const box = element('div', 'bf-offer-terms');
+        for (const oferta of grupo.ofertas || []) {
+            const item = element('div', 'bf-offer-option');
+            item.append(element('h4', '', oferta.nombre),
+                element('strong', '', `${oferta.descuento}% de descuento`),
+                element('p', '', 'En efectivo, transferencia o un solo pago con tarjeta participante.'));
+            if (oferta.msi?.length) item.append(element('p', '', `O ${oferta.msi.join(', ')} meses sin intereses, sin descuento, con tarjeta de crédito participante.`));
+            if (oferta.amex != null) item.append(element('p', 'bf-amex-terms', oferta.amex
+                ? `AMEX e internacionales: ${oferta.amex}% de descuento en un solo pago; sin MSI.`
+                : 'AMEX e internacionales: sin descuento y sin MSI.'));
+            for (const combinacion of oferta.combinaciones || []) {
+                item.append(element('p', 'bf-offer-combo', `${combinacion.descuento}% de descuento + ${combinacion.msi.join(', ')} MSI con tarjeta participante. No aplica con AMEX ni internacionales.`));
+            }
+            box.append(item);
+        }
+        if (grupo.nota) box.append(element('p', 'bf-offer-note', grupo.nota));
+        return box;
+    }
     function lineCard(grupo) {
         const link = element('a', 'bf-line-card');
         link.href = `catalogo.html?buenFin=${encodeURIComponent(grupo.categoria)}`;
         link.append(element('span', 'bf-eyebrow', 'Líneas participantes'),
-            element('h3', '', grupo.titulo),
+            element('h3', '', grupo.titulo), terms(grupo),
             element('span', 'bf-line-action', 'Explorar líneas del catálogo →'));
         return link;
     }
-    function card(producto) {
+    function card(producto, grupo) {
         // Las mismas clases y estructura visual que las promociones del mes.
         const link = element('a', 'best-seller-card offer-card');
         link.href = `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
-        const badge = element('span', 'discount-badge', 'Selección Buen Fin');
+        const descuento = grupo.ofertas?.[0]?.descuento;
+        const badge = element('span', 'discount-badge', descuento ? `${descuento}% de descuento` : 'Selección Buen Fin');
         const media = element('div', 'best-seller-image');
         const placeholder = element('span', '', 'Imagen no disponible');
         placeholder.hidden = Boolean(producto.Imagenes);
@@ -57,9 +77,9 @@
                 }
                 const section = element('section', 'promotion-group');
                 const grid = element('div', 'promotion-products-grid');
-                section.append(element('h2', '', grupo.titulo), grid);
+                section.append(element('h2', '', grupo.titulo), terms(grupo), grid);
                 for (const producto of grupo.productos) {
-                    grid.append(card(producto));
+                    grid.append(card(producto, grupo));
                     total++;
                 }
                 if (!grupo.productos.length) grid.append(element('p', 'bf-section-description', `${grupo.titulo}: productos no disponibles por el momento.`));

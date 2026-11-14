@@ -6,6 +6,28 @@
       "PINTURA ITP/CLASSIC",
       "PINTURA COVER MIL",
       "PINTURA ACUACOVER"
+    ],
+    "ofertas": [
+      {
+        "nombre": "ITP, MIL y Acuacover",
+        "descuento": 20,
+        "msi": [
+          3,
+          6,
+          9,
+          12
+        ],
+        "amex": 15,
+        "combinaciones": [
+          {
+            "descuento": 10,
+            "msi": [
+              3,
+              6
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -17,6 +39,37 @@
       "HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL",
       "HERRAMIENTAS P/CONSTRUCCION",
       "HERRAMIENTAS P/ELECTRICISTA"
+    ],
+    "ofertas": [
+      {
+        "nombre": "Urrea",
+        "descuento": 10,
+        "msi": [
+          3,
+          6
+        ],
+        "amex": 5
+      },
+      {
+        "nombre": "Truper",
+        "descuento": 15,
+        "msi": [
+          3,
+          6,
+          9
+        ],
+        "amex": 10
+      },
+      {
+        "nombre": "Iusa",
+        "descuento": 15,
+        "msi": [
+          3,
+          6,
+          9
+        ],
+        "amex": 10
+      }
     ]
   },
   {
@@ -25,6 +78,25 @@
     "lineas": [
       "MATERIAL COBRE",
       "TUBO PLUS"
+    ],
+    "ofertas": [
+      {
+        "nombre": "Cobre",
+        "descuento": 5,
+        "msi": [
+          3
+        ],
+        "amex": 0
+      },
+      {
+        "nombre": "PPR",
+        "descuento": 10,
+        "msi": [
+          3,
+          6
+        ],
+        "amex": 5
+      }
     ]
   },
   {
@@ -38,6 +110,17 @@
       "08821",
       "JGO08221",
       "47907"
+    ],
+    "ofertas": [
+      {
+        "nombre": "Muebles de baño",
+        "descuento": 10,
+        "msi": [
+          3,
+          6
+        ],
+        "amex": 5
+      }
     ]
   },
   {
@@ -49,6 +132,17 @@
       "EL8060B",
       "08833",
       "4-1004367"
+    ],
+    "ofertas": [
+      {
+        "nombre": "Espejos seleccionados",
+        "descuento": 15,
+        "msi": [
+          3,
+          6
+        ],
+        "amex": 5
+      }
     ]
   },
   {
@@ -65,6 +159,42 @@
       "08668",
       "06091",
       "08022"
+    ],
+    "ofertas": [
+      {
+        "nombre": "Productos seleccionados Sika",
+        "descuento": 25,
+        "msi": [
+          3,
+          6,
+          9,
+          12
+        ],
+        "amex": 20,
+        "combinaciones": [
+          {
+            "descuento": 10,
+            "msi": [
+              3,
+              6,
+              9
+            ]
+          },
+          {
+            "descuento": 15,
+            "msi": [
+              3,
+              6
+            ]
+          },
+          {
+            "descuento": 20,
+            "msi": [
+              3
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -72,10 +202,33 @@
     "claves": [
       "08584",
       "08288"
+    ],
+    "ofertas": [
+      {
+        "nombre": "Puertas",
+        "descuento": 10,
+        "msi": [
+          3,
+          6
+        ],
+        "amex": 5
+      }
     ]
   },
   {
     "titulo": "Tinas",
-    "promocion": "Tinas participantes"
+    "promocion": "Tinas participantes",
+    "ofertas": [
+      {
+        "nombre": "Tinas",
+        "descuento": 10,
+        "msi": [
+          3,
+          6
+        ],
+        "amex": 5
+      }
+    ],
+    "nota": "Elige la promoción del mes o la del Buen Fin; no se acumulan."
   }
 ]

@@ -543,7 +543,7 @@ app.get("/api/buen-fin", async (req, res) => {
                     console.error("Buen Fin:", ref.linea, error.message);
                 }
             }
-            grupos.push({ titulo: grupo.titulo, categoria: grupo.categoria, representativa, productos, incompleto });
+            grupos.push({ titulo: grupo.titulo, categoria: grupo.categoria, ofertas: grupo.ofertas, nota: grupo.nota, representativa, productos, incompleto });
         }
         res.json({ grupos });
     } catch (error) {
