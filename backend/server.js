@@ -525,6 +525,9 @@ app.get("/api/buen-fin", async (req, res) => {
                     return !grupo.buscar || new RegExp(`\\b${grupo.buscar}\\b`).test(normalizar(`${p.Nombre} ${p.linea}`));
                 });
             const productos = [];
+            const incidencias = (grupo.claves || []).filter(clave =>
+                !referencias.some(ref => normalizarClave(ref.Clave) === normalizarClave(clave))
+            ).map(clave => ({ clave, linea: grupo.linea || null, motivo: 'Código no encontrado en el catálogo' }));
             let incompleto = grupo.claves ? referencias.length < grupo.claves.length : referencias.length === 0;
             const lineasIncluidas = new Set();
             for (const ref of referencias) {
@@ -533,17 +536,22 @@ app.get("/api/buen-fin", async (req, res) => {
                     if (!hojas.has(ref.linea)) hojas.set(ref.linea, obtenerProductosPorHoja(ref.linea));
                     const lista = await hojas.get(ref.linea);
                     const producto = lista.find(p => normalizarClave(p.Clave) === normalizarClave(ref.Clave));
-                    if (!producto) { incompleto = true; continue; }
+                    if (!producto) {
+                        incompleto = true;
+                        incidencias.push({ clave: ref.Clave, nombre: ref.Nombre, linea: ref.linea, motivo: 'Código no encontrado en su línea' });
+                        continue;
+                    }
                     // Solo datos de catálogo: no publicar precios sin confirmar.
                     productos.push({ Clave: producto.Clave, Nombre: producto.Nombre,
                         Imagenes: producto.Imagenes, linea: ref.linea });
                     lineasIncluidas.add(ref.linea);
                 } catch (error) {
                     incompleto = true;
+                    incidencias.push({ clave: ref.Clave, nombre: ref.Nombre, linea: ref.linea, motivo: 'No se pudo cargar la línea; intenta de nuevo' });
                     console.error("Buen Fin:", ref.linea, error.message);
                 }
             }
-            grupos.push({ titulo: grupo.titulo, categoria: grupo.categoria, ofertas: grupo.ofertas, nota: grupo.nota, representativa, productos, incompleto });
+            grupos.push({ titulo: grupo.titulo, categoria: grupo.categoria, ofertas: grupo.ofertas, nota: grupo.nota, representativa, productos, incompleto, incidencias });
         }
         res.json({ grupos });
     } catch (error) {

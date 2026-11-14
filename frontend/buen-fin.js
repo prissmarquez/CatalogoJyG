@@ -82,13 +82,29 @@
                     grid.append(card(producto, grupo));
                     total++;
                 }
-                if (!grupo.productos.length) grid.append(element('p', 'bf-section-description', `${grupo.titulo}: productos no disponibles por el momento.`));
+                if (!grupo.productos.length) grid.append(element('p', 'bf-section-description', `${grupo.titulo}: no se pudieron cargar los productos.`));
                 fragment.append(section);
             }
             container.replaceChildren(fragment);
             const incomplete = grupos.some(g => g.incompleto);
-            status.textContent = !total ? 'No se pudieron encontrar los productos participantes.'
-                : incomplete ? 'Algunos productos no están disponibles por el momento. Puedes intentar cargarlos de nuevo.' : '';
+            status.replaceChildren();
+            if (!total || incomplete) {
+                status.append(element('p', '', total
+                    ? 'Algunos productos no se pudieron cargar. Los demás se muestran abajo.'
+                    : 'No se pudieron cargar los productos participantes.'));
+                const incidencias = grupos.flatMap(grupo => (grupo.incidencias || []).map(incidencia => ({ ...incidencia, grupo: grupo.titulo })));
+                if (incidencias.length) {
+                    const details = element('details', 'bf-load-details');
+                    details.append(element('summary', '', `Ver productos que fallaron (${incidencias.length})`));
+                    const list = element('ul');
+                    for (const incidencia of incidencias) {
+                        const texto = `${incidencia.grupo} · Código ${incidencia.clave}${incidencia.nombre ? ` · ${incidencia.nombre}` : ''}${incidencia.linea ? ` · Línea: ${incidencia.linea}` : ''}: ${incidencia.motivo}.`;
+                        list.append(element('li', '', texto));
+                    }
+                    details.append(list);
+                    status.append(details);
+                }
+            }
             retry.hidden = total > 0 && !incomplete;
         } catch {
             status.textContent = 'No se pudieron cargar los productos. Intenta de nuevo.';
