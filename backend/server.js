@@ -493,8 +493,7 @@ app.get("/api/promociones", async (req, res) => {
     }
 });
 
-// El Buen Fin: una referencia por línea y las claves específicas del folleto.
-// Los precios se incorporarán cuando esté disponible la exportación de Microsip.
+// El Buen Fin combina enlaces a líneas con productos del catálogo, sin precios.
 const buenFin = require("./config/buen-fin.json");
 app.get("/api/buen-fin", async (req, res) => {
     try {
@@ -503,9 +502,16 @@ app.get("/api/buen-fin", async (req, res) => {
             .replace(/[\u0300-\u036f]/g, "").toUpperCase();
         const hojas = new Map();
         const grupos = [];
-        for (const grupo of buenFin) {
+        for (const configuracion of buenFin) {
+            // Reutilizar la selección del mes sin copiar precios ni beneficios.
+            const mensual = configuracion.promocion
+                ? promociones.find(oferta => oferta.titulo === configuracion.promocion) : null;
+            if (configuracion.promocion && !mensual) throw new Error("Promoción de referencia no encontrada");
+            const grupo = mensual
+                ? { ...configuracion, linea: mensual.linea, claves: mensual.claves } : configuracion;
+            const representativa = !grupo.claves && !grupo.mostrarProductos;
             const referencias = grupo.claves
-                ? grupo.claves.map(clave => cacheBusqueda.find(p => normalizarClave(p.Clave) === clave)).filter(Boolean)
+                ? grupo.claves.map(clave => cacheBusqueda.find(p => normalizarClave(p.Clave) === clave && (!grupo.linea || normalizar(p.linea) === normalizar(grupo.linea)))).filter(Boolean)
                 : cacheBusqueda.filter(p => {
                     if (grupo.linea && normalizar(p.linea) !== normalizar(grupo.linea)) return false;
                     if (grupo.herramientas && !normalizar(p.linea).includes("HERRAMIENT")) return false;
@@ -513,7 +519,9 @@ app.get("/api/buen-fin", async (req, res) => {
                 });
             const productos = [];
             let incompleto = grupo.claves ? referencias.length < grupo.claves.length : referencias.length === 0;
+            const lineasIncluidas = new Set();
             for (const ref of referencias) {
+                if (representativa && lineasIncluidas.has(ref.linea)) continue;
                 try {
                     if (!hojas.has(ref.linea)) hojas.set(ref.linea, obtenerProductosPorHoja(ref.linea));
                     const lista = await hojas.get(ref.linea);
@@ -522,13 +530,13 @@ app.get("/api/buen-fin", async (req, res) => {
                     // Solo datos de catálogo: no publicar precios sin confirmar.
                     productos.push({ Clave: producto.Clave, Nombre: producto.Nombre,
                         Imagenes: producto.Imagenes, linea: ref.linea });
-                    if (!grupo.claves) break;
+                    lineasIncluidas.add(ref.linea);
                 } catch (error) {
                     incompleto = true;
                     console.error("Buen Fin:", ref.linea, error.message);
                 }
             }
-            grupos.push({ titulo: grupo.titulo, representativa: !grupo.claves, productos, incompleto });
+            grupos.push({ titulo: grupo.titulo, categoria: grupo.categoria, representativa, productos, incompleto });
         }
         res.json({ grupos });
     } catch (error) {

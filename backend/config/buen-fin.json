@@ -2,38 +2,46 @@
   {
     "titulo": "Tuberías y conexiones de cobre",
     "buscar": "COBRE",
-    "linea": "MATERIAL COBRE"
+    "linea": "MATERIAL COBRE",
+    "categoria": "Tuberías y conexiones"
   },
   {
     "titulo": "Tuberías y conexiones PPR",
-    "buscar": "PPR"
+    "categoria": "Tuberías y conexiones",
+    "linea": "TUBO PLUS"
   },
   {
     "titulo": "Herramientas Urrea",
     "buscar": "URREA",
-    "herramientas": true
+    "herramientas": true,
+    "categoria": "Herramientas"
   },
   {
     "titulo": "Herramientas Truper",
     "buscar": "TRUPER",
-    "herramientas": true
+    "herramientas": true,
+    "categoria": "Herramientas"
   },
   {
     "titulo": "Herramientas Iusa",
     "buscar": "IUSA",
-    "herramientas": true
+    "herramientas": true,
+    "categoria": "Herramientas"
   },
   {
     "titulo": "Pintura vinílica ITP Classic",
-    "linea": "PINTURA ITP/CLASSIC"
+    "linea": "PINTURA ITP/CLASSIC",
+    "categoria": "Pinturas"
   },
   {
     "titulo": "Pintura vinílica MIL",
-    "linea": "PINTURA COVER MIL"
+    "linea": "PINTURA COVER MIL",
+    "categoria": "Pinturas"
   },
   {
     "titulo": "Pintura Acuacover",
-    "linea": "PINTURA ACUACOVER"
+    "linea": "PINTURA ACUACOVER",
+    "categoria": "Pinturas"
   },
   {
     "titulo": "Muebles de baño",
@@ -58,5 +66,32 @@
       "08833",
       "4-1004367"
     ]
+  },
+  {
+    "titulo": "Sika",
+    "claves": [
+      "08024",
+      "08663",
+      "08026",
+      "609098",
+      "750823",
+      "08667",
+      "06004",
+      "08017",
+      "08668",
+      "06091",
+      "08022"
+    ]
+  },
+  {
+    "titulo": "Puertas",
+    "claves": [
+      "08584",
+      "08288"
+    ]
+  },
+  {
+    "titulo": "Tinas",
+    "promocion": "Tinas participantes"
   }
 ]

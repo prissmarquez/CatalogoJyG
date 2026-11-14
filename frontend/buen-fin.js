@@ -11,13 +11,15 @@
     function card(producto, grupo) {
         const article = element('article', 'bf-product-card');
         const link = element('a', 'bf-product-link');
-        link.href = `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
+        link.href = grupo.representativa
+            ? `linea.html?linea=${encodeURIComponent(producto.linea)}`
+            : `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
         const media = element('div', 'bf-product-art');
         const placeholder = element('span', 'bf-image-placeholder', 'Imagen no disponible');
         media.append(placeholder);
         if (producto.Imagenes) {
             const img = document.createElement('img');
-            img.alt = producto.Nombre;
+            img.alt = grupo.representativa ? grupo.titulo : producto.Nombre;
             img.loading = 'lazy';
             img.referrerPolicy = 'no-referrer';
             img.addEventListener('error', () => { img.hidden = true; placeholder.hidden = false; });
@@ -28,10 +30,9 @@
         media.append(element('span', 'bf-card-tag', grupo.representativa ? 'Imagen representativa de la línea' : 'Selección Buen Fin'));
         const copy = element('div', 'bf-product-copy');
         copy.append(element('span', 'bf-category', producto.linea),
-            element('h3', '', producto.Nombre),
-            element('p', '', `Clave: ${producto.Clave}`),
-            element('div', 'bf-price-placeholder', 'Precio por confirmar'),
-            element('span', 'bf-card-footnote', 'Ver producto →'));
+            element('h3', '', grupo.representativa ? grupo.titulo : producto.Nombre));
+        if (!grupo.representativa) copy.append(element('p', '', `Clave: ${producto.Clave}`));
+        copy.append(element('span', 'bf-card-footnote', grupo.representativa ? 'Ver línea →' : 'Ver producto →'));
         link.append(media, copy);
         article.append(link);
         return article;
@@ -45,14 +46,21 @@
             if (!response.ok) throw new Error('Error de carga');
             const { grupos } = await response.json();
             const fragment = document.createDocumentFragment();
-            const lines = element('div', 'bf-product-grid');
-            const lineSection = element('section', 'bf-catalog-group');
-            lineSection.append(element('h3', 'bf-group-title', 'Líneas participantes'), lines);
-            fragment.append(lineSection);
+            const categorias = new Map();
             let total = 0;
             for (const grupo of grupos) {
-                let grid = lines;
-                if (!grupo.representativa) {
+                let grid;
+                if (grupo.representativa) {
+                    const categoria = grupo.categoria || 'Líneas participantes';
+                    if (!categorias.has(categoria)) {
+                        const section = element('section', 'bf-catalog-group');
+                        const categoryGrid = element('div', 'bf-product-grid');
+                        section.append(element('h3', 'bf-group-title', categoria), categoryGrid);
+                        fragment.append(section);
+                        categorias.set(categoria, categoryGrid);
+                    }
+                    grid = categorias.get(categoria);
+                } else {
                     const section = element('section', 'bf-catalog-group');
                     grid = element('div', 'bf-product-grid');
                     section.append(element('h3', 'bf-group-title', grupo.titulo), grid);
@@ -60,10 +68,6 @@
                 }
                 for (const producto of grupo.productos) {
                     const item = card(producto, grupo);
-                    if (grupo.representativa) {
-                        item.querySelector('.bf-category').textContent = grupo.titulo;
-                        item.querySelector('.bf-card-footnote').textContent = 'Ver producto representativo →';
-                    }
                     grid.append(item);
                     total++;
                 }
