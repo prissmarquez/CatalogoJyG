@@ -31,8 +31,19 @@
         const link = element('a', 'bf-line-card');
         link.href = `catalogo.html?buenFin=${encodeURIComponent(grupo.categoria)}`;
         link.append(element('span', 'bf-eyebrow', 'Líneas participantes'),
-            element('h3', '', grupo.titulo), terms(grupo),
-            element('span', 'bf-line-action', 'Explorar líneas del catálogo →'));
+            element('h3', '', grupo.titulo));
+        if (grupo.imagen) {
+            const media = element('div', 'bf-line-image');
+            const img = document.createElement('img');
+            img.alt = `Imagen representativa de ${grupo.titulo.toLowerCase()}`;
+            img.loading = 'lazy';
+            img.referrerPolicy = 'no-referrer';
+            img.addEventListener('error', () => { media.hidden = true; });
+            img.src = grupo.imagen;
+            media.append(img);
+            link.append(media);
+        }
+        link.append(terms(grupo), element('span', 'bf-line-action', 'Explorar líneas del catálogo →'));
         return link;
     }
     function card(producto, grupo) {

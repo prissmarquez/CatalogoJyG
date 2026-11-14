@@ -507,7 +507,18 @@ app.get("/api/buen-fin", async (req, res) => {
         const grupos = [];
         for (const configuracion of buenFin) {
             if (configuracion.lineas) {
-                grupos.push({ ...configuracion, representativa: true, productos: [], incompleto: false });
+                let imagen = null;
+                for (const linea of configuracion.lineas) {
+                    try {
+                        if (!hojas.has(linea)) hojas.set(linea, obtenerProductosPorHoja(linea));
+                        const lista = await hojas.get(linea);
+                        const referencia = lista.find(producto => producto.Imagenes);
+                        if (referencia) { imagen = referencia.Imagenes; break; }
+                    } catch (error) {
+                        console.error("Imagen de línea Buen Fin:", linea, error.message);
+                    }
+                }
+                grupos.push({ ...configuracion, imagen, representativa: true, productos: [], incompleto: false });
                 continue;
             }
             // Reutilizar la selección del mes sin copiar precios ni beneficios.
