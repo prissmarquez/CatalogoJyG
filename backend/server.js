@@ -518,7 +518,11 @@ app.get("/api/buen-fin", async (req, res) => {
                 ? { ...configuracion, linea: mensual.linea, claves: mensual.claves } : configuracion;
             const representativa = !grupo.claves && !grupo.mostrarProductos;
             const referencias = grupo.claves
-                ? grupo.claves.map(clave => cacheBusqueda.find(p => normalizarClave(p.Clave) === clave && (!grupo.linea || normalizar(p.linea) === normalizar(grupo.linea)))).filter(Boolean)
+                ? grupo.claves.map(clave => {
+                    // Si conocemos la línea, consultar su hoja aunque el índice esté desactualizado.
+                    if (grupo.linea) return { Clave: clave, linea: grupo.linea };
+                    return cacheBusqueda.find(p => normalizarClave(p.Clave) === normalizarClave(clave));
+                }).filter(Boolean)
                 : cacheBusqueda.filter(p => {
                     if (grupo.linea && normalizar(p.linea) !== normalizar(grupo.linea)) return false;
                     if (grupo.herramientas && !normalizar(p.linea).includes("HERRAMIENT")) return false;
