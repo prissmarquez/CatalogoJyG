@@ -1,47 +1,31 @@
 [
   {
-    "titulo": "Tuberías y conexiones de cobre",
-    "buscar": "COBRE",
-    "linea": "MATERIAL COBRE",
-    "categoria": "Tuberías y conexiones"
+    "titulo": "Pinturas",
+    "categoria": "pinturas",
+    "lineas": [
+      "PINTURA ITP/CLASSIC",
+      "PINTURA COVER MIL",
+      "PINTURA ACUACOVER"
+    ]
   },
   {
-    "titulo": "Tuberías y conexiones PPR",
-    "categoria": "Tuberías y conexiones",
-    "linea": "TUBO PLUS"
+    "titulo": "Herramientas",
+    "categoria": "herramientas",
+    "lineas": [
+      "HERRAMIENTAS",
+      "HERRAMIENTA CARPINTERO",
+      "HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL",
+      "HERRAMIENTAS P/CONSTRUCCION",
+      "HERRAMIENTAS P/ELECTRICISTA"
+    ]
   },
   {
-    "titulo": "Herramientas Urrea",
-    "buscar": "URREA",
-    "herramientas": true,
-    "categoria": "Herramientas"
-  },
-  {
-    "titulo": "Herramientas Truper",
-    "buscar": "TRUPER",
-    "herramientas": true,
-    "categoria": "Herramientas"
-  },
-  {
-    "titulo": "Herramientas Iusa",
-    "buscar": "IUSA",
-    "herramientas": true,
-    "categoria": "Herramientas"
-  },
-  {
-    "titulo": "Pintura vinílica ITP Classic",
-    "linea": "PINTURA ITP/CLASSIC",
-    "categoria": "Pinturas"
-  },
-  {
-    "titulo": "Pintura vinílica MIL",
-    "linea": "PINTURA COVER MIL",
-    "categoria": "Pinturas"
-  },
-  {
-    "titulo": "Pintura Acuacover",
-    "linea": "PINTURA ACUACOVER",
-    "categoria": "Pinturas"
+    "titulo": "Tuberías y conexiones",
+    "categoria": "tuberias",
+    "lineas": [
+      "MATERIAL COBRE",
+      "TUBO PLUS"
+    ]
   },
   {
     "titulo": "Muebles de baño",

@@ -1863,3 +1863,12 @@ body { padding-bottom: 96px; }
 .bf-image-placeholder { font-size:14px; color:#62606a; }
 .bf-product-copy .bf-category { overflow-wrap:anywhere; }
 .bf-card-tag { z-index:1; max-width:calc(100% - 32px); }
+
+/* Accesos a líneas del Buen Fin, sin productos de ejemplo. */
+.bf-line-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin:28px 0 36px; }
+.bf-line-card { display:flex; flex-direction:column; gap:18px; padding:28px; border:1px solid var(--border); border-radius:16px; background:white; color:var(--azul); text-decoration:none; }
+.bf-line-card h3 { font-size:24px; line-height:1.3; }
+.bf-line-action { margin-top:auto; color:var(--rojo); font-size:14px; font-weight:700; }
+.bf-line-card:hover { border-color:var(--rojo); box-shadow:var(--shadow); }
+.bf-line-card:focus-visible { outline:3px solid var(--rojo); outline-offset:3px; }
+@media (max-width:600px) { .bf-line-grid { grid-template-columns:1fr; gap:12px; } }

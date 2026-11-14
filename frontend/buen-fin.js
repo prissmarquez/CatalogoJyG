@@ -8,34 +8,35 @@
         if (text) node.textContent = text;
         return node;
     }
-    function card(producto, grupo) {
-        const article = element('article', 'bf-product-card');
-        const link = element('a', 'bf-product-link');
-        link.href = grupo.representativa
-            ? `linea.html?linea=${encodeURIComponent(producto.linea)}`
-            : `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
-        const media = element('div', 'bf-product-art');
-        const placeholder = element('span', 'bf-image-placeholder', 'Imagen no disponible');
+    function lineCard(grupo) {
+        const link = element('a', 'bf-line-card');
+        link.href = `catalogo.html?buenFin=${encodeURIComponent(grupo.categoria)}`;
+        link.append(element('span', 'bf-eyebrow', 'Líneas participantes'),
+            element('h3', '', grupo.titulo),
+            element('span', 'bf-line-action', 'Explorar líneas del catálogo →'));
+        return link;
+    }
+    function card(producto) {
+        // Las mismas clases y estructura visual que las promociones del mes.
+        const link = element('a', 'best-seller-card offer-card');
+        link.href = `producto.html?clave=${encodeURIComponent(producto.Clave)}&linea=${encodeURIComponent(producto.linea)}`;
+        const badge = element('span', 'discount-badge', 'Selección Buen Fin');
+        const media = element('div', 'best-seller-image');
+        const placeholder = element('span', '', 'Imagen no disponible');
+        placeholder.hidden = Boolean(producto.Imagenes);
         media.append(placeholder);
         if (producto.Imagenes) {
             const img = document.createElement('img');
-            img.alt = grupo.representativa ? grupo.titulo : producto.Nombre;
+            img.alt = producto.Nombre;
             img.loading = 'lazy';
             img.referrerPolicy = 'no-referrer';
             img.addEventListener('error', () => { img.hidden = true; placeholder.hidden = false; });
-            placeholder.hidden = true;
             img.src = producto.Imagenes;
             media.append(img);
         }
-        media.append(element('span', 'bf-card-tag', grupo.representativa ? 'Imagen representativa de la línea' : 'Selección Buen Fin'));
-        const copy = element('div', 'bf-product-copy');
-        copy.append(element('span', 'bf-category', producto.linea),
-            element('h3', '', grupo.representativa ? grupo.titulo : producto.Nombre));
-        if (!grupo.representativa) copy.append(element('p', '', `Clave: ${producto.Clave}`));
-        copy.append(element('span', 'bf-card-footnote', grupo.representativa ? 'Ver línea →' : 'Ver producto →'));
-        link.append(media, copy);
-        article.append(link);
-        return article;
+        link.append(badge, media, element('h3', '', producto.Nombre),
+            element('p', '', `Clave: ${producto.Clave}`));
+        return link;
     }
     async function load() {
         retry.hidden = true;
@@ -46,32 +47,23 @@
             if (!response.ok) throw new Error('Error de carga');
             const { grupos } = await response.json();
             const fragment = document.createDocumentFragment();
-            const categorias = new Map();
+            const lines = element('div', 'bf-line-grid');
+            fragment.append(lines);
             let total = 0;
             for (const grupo of grupos) {
-                let grid;
                 if (grupo.representativa) {
-                    const categoria = grupo.categoria || 'Líneas participantes';
-                    if (!categorias.has(categoria)) {
-                        const section = element('section', 'bf-catalog-group');
-                        const categoryGrid = element('div', 'bf-product-grid');
-                        section.append(element('h3', 'bf-group-title', categoria), categoryGrid);
-                        fragment.append(section);
-                        categorias.set(categoria, categoryGrid);
-                    }
-                    grid = categorias.get(categoria);
-                } else {
-                    const section = element('section', 'bf-catalog-group');
-                    grid = element('div', 'bf-product-grid');
-                    section.append(element('h3', 'bf-group-title', grupo.titulo), grid);
-                    fragment.append(section);
+                    lines.append(lineCard(grupo));
+                    continue;
                 }
+                const section = element('section', 'promotion-group');
+                const grid = element('div', 'promotion-products-grid');
+                section.append(element('h2', '', grupo.titulo), grid);
                 for (const producto of grupo.productos) {
-                    const item = card(producto, grupo);
-                    grid.append(item);
+                    grid.append(card(producto));
                     total++;
                 }
                 if (!grupo.productos.length) grid.append(element('p', 'bf-section-description', `${grupo.titulo}: productos no disponibles por el momento.`));
+                fragment.append(section);
             }
             container.replaceChildren(fragment);
             const incomplete = grupos.some(g => g.incompleto);

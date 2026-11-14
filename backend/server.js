@@ -495,6 +495,9 @@ app.get("/api/promociones", async (req, res) => {
 
 // El Buen Fin combina enlaces a líneas con productos del catálogo, sin precios.
 const buenFin = require("./config/buen-fin.json");
+app.get("/api/buen-fin/lineas", (req, res) => {
+    res.json(buenFin.filter(grupo => grupo.lineas));
+});
 app.get("/api/buen-fin", async (req, res) => {
     try {
         await asegurarCacheBusqueda();
@@ -503,6 +506,10 @@ app.get("/api/buen-fin", async (req, res) => {
         const hojas = new Map();
         const grupos = [];
         for (const configuracion of buenFin) {
+            if (configuracion.lineas) {
+                grupos.push({ ...configuracion, representativa: true, productos: [], incompleto: false });
+                continue;
+            }
             // Reutilizar la selección del mes sin copiar precios ni beneficios.
             const mensual = configuracion.promocion
                 ? promociones.find(oferta => oferta.titulo === configuracion.promocion) : null;
