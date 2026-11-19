@@ -1,0 +1,168 @@
+<!-- OVERLAY -->
+<div class="sidebar-overlay" [class.open]="menuAbierto()" (click)="cerrarMenu()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" [class.open]="menuAbierto()">
+  <div class="sidebar-header">
+    <div>
+      <h2>Catálogo</h2>
+      <p>Líneas de productos</p>
+    </div>
+    <button (click)="cerrarMenu()">×</button>
+  </div>
+
+  <div class="sidebar-content">
+    @for (grupo of lineas; track grupo.letra) {
+      <div class="letter-group">
+        <h3>{{ grupo.letra }}</h3>
+        @for (linea of grupo.lineas; track $index) {
+          <a routerLink="/linea" [queryParams]="{ linea: linea.valor }">{{ linea.texto }}</a>
+        }
+      </div>
+    }
+  </div>
+</aside>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <!-- LOGO -->
+    <div class="brand">
+      <a routerLink="/">
+        <img class="brand-logo" src="assets/logo1.png" alt="Materiales JyG" width="536" height="350">
+        <div class="brand-sub">
+          Catálogo de productos
+        </div>
+      </a>
+    </div>
+
+    <div class="nav-search-actions">
+      <a class="promotions-btn" routerLink="/promociones"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="flex-shrink:0"><path d="M20 13 11 22 2 13V2h11l9 9a1.4 1.4 0 0 1 0 2l-2 2" transform="translate(1 0) scale(.9)"/><circle cx="7" cy="7" r="1.5"/><path d="m10 16 6-6"/></svg><span>Promociones</span></a>
+
+      <!-- SEARCH -->
+      <div class="search-wrap" appBuscador modo="inicio"></div>
+    </div>
+
+    <!-- MENU BUTTON -->
+    <button class="menu-btn" (click)="abrirMenu()">
+      ☰ Catálogo
+    </button>
+  </div>
+</nav>
+
+<a class="monthly-promo-callout" routerLink="/promociones">
+  <span class="monthly-promo-icon" aria-hidden="true">%</span>
+  <span>¡Mira las <strong>promociones de este mes!</strong></span>
+  <span class="monthly-promo-arrow" aria-hidden="true">→</span>
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    +8500 productos
+  </div>
+
+  <img class="intro-logo" src="assets/logo1%20-%20Editado.png" alt="Materiales JyG" width="536" height="350">
+
+  <h1>
+    Bienvenido a <span>JYG</span>
+  </h1>
+
+  <p>
+    Encuentra todo para tu obra y construcción: materiales, herramientas,
+    productos eléctricos, hidráulicos, pinturas y mucho más.
+  </p>
+
+  <div class="hero-buttons">
+    <a routerLink="/catalogo" class="primary-btn">
+      Explorar catálogo
+    </a>
+  </div>
+</section>
+
+<!-- LOS MÁS VENDIDOS -->
+<main class="content-wrap best-sellers" aria-labelledby="bestSellersTitle">
+  <div class="section-top">
+    <h2 class="section-title" id="bestSellersTitle">Los más vendidos</h2>
+    <div class="carousel-controls">
+      <button type="button" id="productsPrev" aria-label="Ver productos anteriores" aria-controls="bestSellersTrack" [disabled]="anteriorDeshabilitado()" (click)="mover(-1)">←</button>
+      <button type="button" id="productsNext" aria-label="Ver productos siguientes" aria-controls="bestSellersTrack" [disabled]="siguienteDeshabilitado()" (click)="mover(1)">→</button>
+    </div>
+  </div>
+  <p id="bestSellersStatus" role="status">@if (estado()) { {{ estado() }} }</p>
+  <button type="button" id="bestSellersRetry" class="primary-btn" [hidden]="!mostrarReintentar()" (click)="cargarMasVendidos()">Reintentar</button>
+  <div #carrusel id="bestSellersTrack" class="best-sellers-track" role="region" aria-label="Productos más vendidos" tabindex="0" (scroll)="actualizarBotones()">
+    @for (producto of masVendidos(); track $index) {
+      <a class="best-seller-card" routerLink="/producto" [queryParams]="{ clave: producto.Clave }">
+        <div class="best-seller-image" appImagenProducto [src]="producto.Imagenes" [alt]="producto.Nombre || 'Producto'"></div>
+        <h3>{{ producto.Nombre }}</h3>
+        <p>Clave: {{ producto.Clave }}</p>
+      </a>
+    }
+  </div>
+</main>
+
+  <section class="about-jyg" aria-labelledby="aboutTitle">
+    <div class="about-inner">
+      <header class="about-intro">
+        <span class="about-eyebrow">20 AÑOS · CONSTRUYENDO CONTIGO</span>
+        <h2 id="aboutTitle">¿Quiénes somos?</h2>
+        <p>En Distribuidora de Materiales JyG acompañamos cada proyecto con materiales de calidad, atención honesta y 20 años de experiencia en la construcción que nos respaldan.</p>
+      </header>
+      <div class="about-highlights">
+        <article>
+          <span class="about-highlight-mark">20 años</span>
+          <h3>Construyendo nuestra historia</h3>
+          <p>Una trayectoria construida con honestidad, profesionalismo y entregas puntuales a tu obra.</p>
+        </article>
+        <article>
+          <span class="about-highlight-mark">100%</span>
+          <h3>De clientes satisfechos</h3>
+          <p>Familias, profesionales e industrias que confían en nosotros para dar vida a sus proyectos.</p>
+        </article>
+        <article>
+          <span class="about-highlight-mark">A tu alcance</span>
+          <h3>Inventario siempre disponible</h3>
+          <p>Un amplio surtido de herramientas y materiales para que tu proyecto siga avanzando.</p>
+        </article>
+      </div>
+
+      <div class="about-pillars" aria-labelledby="pillarsTitle">
+        <h2 id="pillarsTitle">Nuestros pilares de excelencia</h2>
+        <div class="about-pillars-grid">
+          <article class="about-pillar">
+            <span class="about-pillar-number" aria-hidden="true">01</span>
+            <h3>Historia</h3>
+            <p>Con 20 años de trayectoria, JyG es referente en la región y zonas aledañas. Nuestra experiencia nos permite ofrecer soluciones para la construcción y abastecer tu obra a tiempo.</p>
+          </article>
+          <article class="about-pillar">
+            <span class="about-pillar-number" aria-hidden="true">02</span>
+            <h3>Misión</h3>
+            <p>Satisfacer tus necesidades con materiales de calidad para construir y renovar espacios. Trabajamos con compromiso y honestidad para ser una empresa rentable y eficiente.</p>
+          </article>
+          <article class="about-pillar">
+            <span class="about-pillar-number" aria-hidden="true">03</span>
+            <h3>Visión</h3>
+            <p>Crecer e innovar con productos de calidad y un servicio confiable, impulsando el desarrollo de cada persona que forma parte de nuestra empresa.</p>
+          </article>
+        </div>
+      </div>
+
+      <section class="about-values" aria-labelledby="valuesTitle">
+        <div class="about-values-heading">
+          <span class="about-eyebrow">LO QUE NOS GUÍA</span>
+          <h2 id="valuesTitle">Nuestros valores</h2>
+          <p>La confianza se construye con lo que hacemos cada día.</p>
+        </div>
+        <div class="about-values-grid">
+          <article><h3>Integridad</h3><p>Actuamos con rectitud, honradez y honestidad en cada momento.</p></article>
+          <article><h3>Compromiso</h3><p>Cumplimos nuestras obligaciones con convicción, disponibilidad y entrega.</p></article>
+          <article><h3>Profesionalismo</h3><p>Realizamos nuestro trabajo con entusiasmo, responsabilidad y eficiencia.</p></article>
+          <article><h3>Trabajo en equipo</h3><p>Sumamos talentos, esfuerzos y conocimientos para llegar más lejos juntos.</p></article>
+        </div>
+      </section>
+    </div>
+  </section>
+
+<!-- FOOTER -->
+<app-footer />

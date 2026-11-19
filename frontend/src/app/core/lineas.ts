@@ -1,0 +1,490 @@
+/**
+ * Líneas de productos. `valor` es el nombre de la pestaña en Google Sheets
+ * (lo que viaja en ?linea=) y `texto` es lo que se muestra.
+ */
+export interface Linea {
+  valor: string;
+  texto: string;
+}
+
+export interface GrupoLineas {
+  letra: string;
+  lineas: Linea[];
+}
+
+/** Página "Catálogo completo". */
+export const LINEAS_CATALOGO: GrupoLineas[] = [
+  {
+    letra: 'A',
+    lineas: [
+      { valor: "ABRAZADERAS", texto: "ABRAZADERAS" },
+      { valor: "ACEITES, GRASAS, ETC", texto: "ACEITES, GRASAS, ETC" },
+      { valor: "ACABADOS", texto: "ACABADOS" },
+      { valor: "ACERO INOXIDABLE", texto: "ACERO INOXIDABLE" },
+      { valor: "ACIDOS Y SOLVENTES", texto: "ACIDOS Y SOLVENTES" },
+      { valor: "ADITIVOS CONCRETO", texto: "ADITIVOS DE CONCRETO" },
+      { valor: "ACERO AL CARBON", texto: "ACERO AL CARBON" },
+      { valor: "ADOQUINES", texto: "ADOQUINES" },
+      { valor: "ADS", texto: "ADS" },
+      { valor: "AGREGADOS QUIMICOS", texto: "AGREGADOS QUIMICOS" },
+      { valor: "ALAMBRE DE PUAS", texto: "ALAMBRE DE PUAS" },
+      { valor: "ALAMBRE GALVANIZADO", texto: "ALAMBRE GALVANIZADO" },
+      { valor: "ALAMBRON Y ESTRIBOS", texto: "ALAMBRON Y ESTRIBOS" },
+      { valor: "ANTIOXI/PRIMER", texto: "ANTIOXI/PRIMER" },
+      { valor: "ARCO Y SEGUETAS (REPUESTOS)", texto: "ARCO Y SEGUETAS (REPUESTOS)" },
+      { valor: "ARMELLA Y ALCAYATA", texto: "ARMELLA Y ALCAYATA" },
+      { valor: "ARTEFACTOS ELECTRICOS", texto: "ARTEFACTOS ELECTRICOS" },
+      { valor: "ASPERSORES Y ATOMIZADORES", texto: "ASPERSORES Y ATOMIZADORES" },
+    ],
+  },
+  {
+    letra: 'B',
+    lineas: [
+      { valor: "BANDOLAS", texto: "BANDOLAS" },
+      { valor: "BATERIAS", texto: "BATERIAS" },
+      { valor: "BISAGRAS", texto: "BISAGRAS" },
+      { valor: "BOMBAS", texto: "BOMBAS" },
+      { valor: "BOQUILLAS/JUNTEADORES", texto: "BOQUILLAS/JUNTEADORES" },
+      { valor: "BROCAS", texto: "BROCAS" },
+      { valor: "BROCHAS Y RODILLOS", texto: "BROCHAS Y RODILLOS" },
+      { valor: "BARNIZ ENTINTADO", texto: "BARNIZ ENTINTADO" },
+      { valor: "BLOCK", texto: "BLOCK" },
+    ],
+  },
+  {
+    letra: 'C',
+    lineas: [
+      { valor: "CABLE", texto: "CABLE" },
+      { valor: "CADENA", texto: "CADENA" },
+      { valor: "CALENTADORES", texto: "CALENTADORES" },
+      { valor: "CALES", texto: "CALES" },
+      { valor: "CANDADOS", texto: "CANDADOS" },
+      { valor: "CARRETILLAS", texto: "CARRETILLAS" },
+      { valor: "CEMENTOS", texto: "CEMENTOS" },
+      { valor: "CERRADURAS", texto: "CERRADURAS" },
+      { valor: "CESPOL", texto: "CESPOL" },
+      { valor: "CINTAS DE MEDICION/FLEXOMETROS", texto: "CINTAS DE MEDICION" },
+      { valor: "CLAVOS", texto: "CLAVOS" },
+      { valor: "COLADERAS/REGISTROS", texto: "COLADERAS/REGISTROS" },
+      { valor: "COLOR CONCENTRADO", texto: "COLOR CONCENTRADO" },
+      { valor: "COLORANTE PARA TENIR", texto: "COLORANTE PARA TENIR" },
+      { valor: "CONCRETO PREMEZCLADO", texto: "CONCRETO PREMEZCLADO" },
+      { valor: "CONDUIT GALVANIZADO", texto: "CONDUIT GALVANIZADO" },
+      { valor: "CONEXIONES CONDULET", texto: "CONEXIONES CONDULET" },
+      { valor: "CONEXIONES DE GAS", texto: "CONEXIONES DE GAS" },
+    ],
+  },
+  {
+    letra: 'D',
+    lineas: [
+      { valor: "DECORATIVOS", texto: "DECORATIVOS" },
+      { valor: "DERIVADOS ACERO", texto: "DERIVADOS ACERO" },
+      { valor: "DERIVADOS BARRO", texto: "DERIVADOS BARRO" },
+      { valor: "DESARMADORES", texto: "DESARMADORES" },
+      { valor: "DISCOS Y CARDAS", texto: "DISCOS Y CARDAS" },
+      { valor: "DIVISORES", texto: "DIVISORES" },
+    ],
+  },
+  {
+    letra: 'E',
+    lineas: [
+      { valor: "ELECTRICO", texto: "ELECTRICO" },
+      { valor: "EMPAQUE DE HULE/NEOPRENO", texto: "EMPAQUE DE HULE/NEOPRENO" },
+      { valor: "EQUIPO DE SEGURIDAD", texto: "EQUIPO DE SEGURIDAD" },
+      { valor: "EQUIPO Y ACCESORIOS PARA PINTAR", texto: "EQUIPO Y ACCESORIOS PARA PINTAR" },
+      { valor: "ESCALERAS", texto: "ESCALERAS" },
+      { valor: "ESMALTE BASE AGUA", texto: "ESMALTE BASE AGUA" },
+      { valor: "ESMALTE BRIL FAST", texto: "ESMALTE BRIL FAST" },
+      { valor: "ESMALTE INDUSTRIAL 300", texto: "ESMALTE INDUSTRIAL 300" },
+      { valor: "ESMALTE TECNOBRIL", texto: "ESMALTE TECNOBRIL" },
+      { valor: "ESPATULAS", texto: "ESPATULAS" },
+      { valor: "ESTUCO / PASTA y ESTRIBO DERIVADO DE VARILLA", texto: "ESTUCO / PASTA y ESTRIBO DERIVADO DE VARILLA" },
+      { valor: "EXTENSIONES ELECTRICAS", texto: "EXTENSIONES ELECTRICAS" },
+    ],
+  },
+  {
+    letra: 'F',
+    lineas: [
+      { valor: "FERRETERIA", texto: "FERRETERIA" },
+    ],
+  },
+  {
+    letra: 'G',
+    lineas: [
+      { valor: "GRANOS Y MARMOLINAS", texto: "GRANOS Y MARMOLINAS" },
+      { valor: "GRAPAS", texto: "GRAPAS" },
+      { valor: "GRASA, LUBRICANTE AUTOMOTRIZ", texto: "GRASA, LUBRICANTE AUTOMOTRIZ" },
+      { valor: "GRIFERIA", texto: "GRIFERIA" },
+      { valor: "GUANTES", texto: "GUANTES" },
+    ],
+  },
+  {
+    letra: 'H',
+    lineas: [
+      { valor: "HERRAMIENTA CARPINTERO", texto: "HERRAMIENTA CARPINTERO" },
+      { valor: "HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL", texto: "HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL" },
+      { valor: "HERRAMIENTAS", texto: "HERRAMIENTAS" },
+      { valor: "HERRAMIENTAS P/CONSTRUCCION", texto: "HERRAMIENTAS P/CONSTRUCCION" },
+      { valor: "HERRAMIENTAS P/ELECTRICISTA", texto: "HERRAMIENTAS P/ELECTRICISTA" },
+    ],
+  },
+  {
+    letra: 'I',
+    lineas: [
+      { valor: "IMPERMEABILIZANTES", texto: "IMPERMEABILIZANTES" },
+    ],
+  },
+  {
+    letra: 'J',
+    lineas: [
+      { valor: "JARCERIA", texto: "JARCERIA" },
+    ],
+  },
+  {
+    letra: 'L',
+    lineas: [
+      { valor: "LAMINA ACRILICA", texto: "LAMINA ACRILICA" },
+      { valor: "LAMINA DE CARTON", texto: "LAMINA DE CARTON" },
+      { valor: "LAMINA GALVANIZADA", texto: "LAMINA GALVANIZADA" },
+      { valor: "LAMINA POLYACRILICA", texto: "LAMINA POLYACRILICA" },
+      { valor: "LAMINA TIPO TEJA", texto: "LAMINA TIPO TEJA" },
+      { valor: "LAVADEROS", texto: "LAVADEROS" },
+      { valor: "LIJAS", texto: "LIJAS" },
+      { valor: "LIMAS", texto: "LIMAS" },
+      { valor: "LLAVE AJUSTABLE", texto: "LLAVE AJUSTABLE" },
+      { valor: "LLAVES INGLESAS", texto: "LLAVES INGLESAS" },
+      { valor: "LUMINARIAS, FOCOS, LED, BOMBILLAS", texto: "LUMINARIAS, FOCOS, LED, BOMBILLAS" },
+    ],
+  },
+  {
+    letra: 'M',
+    lineas: [
+      { valor: "MACHETES", texto: "MACHETES" },
+      { valor: "MACHUELOS", texto: "MACHUELOS" },
+      { valor: "MADERA Y DERIVADOS", texto: "MADERA Y DERIVADOS" },
+      { valor: "MALLAS ELECT.", texto: "MALLAS ELECT." },
+      { valor: "MALLAS/CRIBAS", texto: "MALLAS/CRIBAS" },
+      { valor: "MANGUERAS Y POLIDUCTOS", texto: "MANGUERAS Y POLIDUCTOS" },
+      { valor: "MATERIAL BRONCE", texto: "MATERIAL BRONCE" },
+      { valor: "MATERIAL COBRE", texto: "MATERIAL COBRE" },
+      { valor: "MATERIAL CPVC", texto: "MATERIAL CPVC" },
+      { valor: "MATERIAL GALVANIZADO", texto: "MATERIAL GALVANIZADO" },
+      { valor: "MATERIAL HIDRAULICO C-40", texto: "MATERIAL HIDRAULICO C-40" },
+      { valor: "MATERIAL HIDRAULICO RD26", texto: "MATERIAL HIDRAULICO RD26" },
+      { valor: "MATERIAL PVC", texto: "MATERIAL PVC" },
+      { valor: "MOLDES", texto: "MOLDES" },
+      { valor: "MORTEROS", texto: "MORTEROS" },
+      { valor: "MUEBLES DE BAÑO Y ACCESORIOS", texto: "MUEBLES DE BAÑO Y ACCESORIOS" },
+      { valor: "MULTICONTACTOS", texto: "MULTICONTACTOS" },
+    ],
+  },
+  {
+    letra: 'O',
+    lineas: [
+      { valor: "OPRESORES", texto: "OPRESORES" },
+    ],
+  },
+  {
+    letra: 'P',
+    lineas: [
+      { valor: "Palas", texto: "PALAS" },
+      { valor: "PEGAZULEJOS", texto: "PEGAZULEJOS" },
+      { valor: "Perfiles", texto: "PERFILES" },
+      { valor: "Pijas", texto: "PIJAS" },
+      { valor: "PINTURA ACUACOVER", texto: "PINTURA ACUACOVER" },
+      { valor: "PISOS Y LOSETAS", texto: "PISOS Y LOSETAS" },
+      { valor: "PINTURA COVER MIL", texto: "PINTURA COVER MIL" },
+      { valor: "PINTURA COVER PRICE", texto: "PINTURA COVER PRICE" },
+      { valor: "PINTURA EN AEROSOL", texto: "PINTURA EN AEROSOL" },
+      { valor: "PINTURA ITP/CLASSIC", texto: "PINTURA ITP/CLASSIC" },
+      { valor: "PINTURA MASTER", texto: "PINTURA MASTER" },
+      { valor: "PINTURA P/ALBERCA", texto: "PINTURA P/ALBERCA" },
+      { valor: "PINTURA PARA TRAFICO", texto: "PINTURA PARA TRAFICO" },
+      { valor: "Pinzas", texto: "PINZAS" },
+      { valor: "POLIESTIRENO", texto: "POLIESTIRENO" },
+      { valor: "PRODUCTOS DE CONCRETO", texto: "PRODUCTOS DE CONCRETO" },
+      { valor: "PVC CONDUIT VERDE", texto: "PVC CONDUIT VERDE" },
+    ],
+  },
+  {
+    letra: 'R',
+    lineas: [
+      { valor: "REFACCIONES CALENTADORES", texto: "REFACCIONES CALENTADORES" },
+      { valor: "REMACHES", texto: "REMACHES" },
+      { valor: "RESANADORES", texto: "RESANADORES" },
+      { valor: "RESINAS", texto: "RESINAS" },
+      { valor: "Rondanas", texto: "RONDANAS" },
+    ],
+  },
+  {
+    letra: 'S',
+    lineas: [
+      { valor: "SELLADOR P/PINTURA", texto: "SELLADOR P/PINTURA" },
+      { valor: "SEMI-INDUSTRIAL", texto: "SEMI-INDUSTRIAL" },
+      { valor: "SILICONES Y SELLADORES", texto: "SILICONES Y SELLADORES" },
+    ],
+  },
+  {
+    letra: 'T',
+    lineas: [
+      { valor: "TAQUETES", texto: "TAQUETES" },
+      { valor: "TINACOS, CISTERNAS Y ACCESORIOS", texto: "TINACOS, CISTERNAS Y ACCESORIOS" },
+      { valor: "TINAS HIDROMASAJE Y ACCESORIOS", texto: "TINAS HIDROMASAJE Y ACCESORIOS" },
+      { valor: "TORNILLO", texto: "TORNILLO" },
+      { valor: "TUBO PLUS", texto: "TUBO PLUS" },
+      { valor: "TUERCAS", texto: "TUERCAS" },
+    ],
+  },
+  {
+    letra: 'V',
+    lineas: [
+      { valor: "VALVULAS", texto: "VALVULAS" },
+      { valor: "VARILLA", texto: "VARILLA" },
+    ],
+  },
+  {
+    letra: 'Y',
+    lineas: [
+      { valor: "Yesos", texto: "YESOS" },
+    ],
+  },
+];
+
+/** Menú lateral de la página de inicio. */
+export const LINEAS_MENU: GrupoLineas[] = [
+  {
+    letra: 'A',
+    lineas: [
+      { valor: "ABRAZADERAS", texto: "ABRAZADERAS" },
+      { valor: "ACEITES, GRASAS, ETC", texto: "ACEITES, GRASAS, ETC" },
+      { valor: "ACABADOS", texto: "ACABADOS" },
+      { valor: "ACERO INOXIDABLE", texto: "ACERO INOXIDABLE" },
+      { valor: "ACIDOS Y SOLVENTES", texto: "ACIDOS Y SOLVENTES" },
+      { valor: "ADITIVOS CONCRETO", texto: "ADITIVOS DE CONCRETO" },
+      { valor: "ACERO AL CARBON", texto: "ACERO AL CARBON" },
+      { valor: "Acero inoxidable y acidos", texto: "Acero inoxidable y acidos" },
+      { valor: "Adoquines", texto: "Adoquines" },
+      { valor: "ADS", texto: "ADS" },
+      { valor: "AGREGADOS QUIMICOS", texto: "AGREGADOS QUIMICOS" },
+      { valor: "ALAMBRE DE PUAS", texto: "ALAMBRE DE PUAS" },
+      { valor: "ALAMBRE GALVANIZADO", texto: "ALAMBRE GALVANIZADO" },
+      { valor: "ALAMBRON Y ESTRIBOS", texto: "ALAMBRON Y ESTRIBOS" },
+      { valor: "ANTIOXI/PRIMER", texto: "ANTIOXI/PRIMER" },
+      { valor: "ARCO Y SEGUETAS (REPUESTOS)", texto: "ARCO Y SEGUETAS (REPUESTOS)" },
+      { valor: "ARMELLA Y ALCAYATA", texto: "ARMELLA Y ALCAYATA" },
+      { valor: "ARTEFACTOS ELECTRICOS", texto: "ARTEFACTOS ELECTRICOS" },
+      { valor: "ASPERSORES Y ATOMIZADORES", texto: "ASPERSORES Y ATOMIZADORES" },
+    ],
+  },
+  {
+    letra: 'B',
+    lineas: [
+      { valor: "BANDOLAS", texto: "BANDOLAS" },
+      { valor: "BATERIAS", texto: "BATERIAS" },
+      { valor: "BISAGRAS", texto: "BISAGRAS" },
+      { valor: "BOMBAS", texto: "BOMBAS" },
+      { valor: "BOQUILLAS/JUNTEADORES", texto: "BOQUILLAS/JUNTEADORES" },
+      { valor: "BROCAS", texto: "BROCAS" },
+      { valor: "BROCHAS Y RODILOS", texto: "BROCHAS Y RODILOS" },
+      { valor: "BARNIZ ENTINTADO", texto: "BARNIZ ENTINTADO" },
+      { valor: "BLOCK", texto: "BLOCK" },
+    ],
+  },
+  {
+    letra: 'C',
+    lineas: [
+      { valor: "Cable", texto: "CABLE" },
+      { valor: "Cadena", texto: "CADENA" },
+      { valor: "Calentadores", texto: "CALENTADORES" },
+      { valor: "Cales", texto: "CALES" },
+      { valor: "Candados", texto: "CANDADOS" },
+      { valor: "Carretillas", texto: "CARRETILLAS" },
+      { valor: "Cementos", texto: "CEMENTOS" },
+      { valor: "Cerraduras", texto: "CERRADURAS" },
+      { valor: "Cespol", texto: "CESPOL" },
+      { valor: "Cintas de medicion/Flexometros", texto: "CINTAS DE MEDICION" },
+      { valor: "Clavos", texto: "CLAVOS" },
+      { valor: "Coladeras/Registros", texto: "COLADERAS/REGISTROS" },
+      { valor: "Color concentrado", texto: "COLOR CONCENTRADO" },
+      { valor: "Colorante para tenir", texto: "COLORANTE PARA TENIR" },
+      { valor: "Concreto Premezclado", texto: "CONCRETO PREMEZCLADO" },
+      { valor: "Conduit Galvanizado", texto: "CONDUIT GALVANIZADO" },
+      { valor: "Conexiones condulet", texto: "CONEXIONES CONDULET" },
+      { valor: "Conexiones de gas", texto: "CONEXIONES DE GAS" },
+    ],
+  },
+  {
+    letra: 'D',
+    lineas: [
+      { valor: "Decorativos", texto: "DECORATIVOS" },
+      { valor: "Derivados acero", texto: "DERIVADOS ACERO" },
+      { valor: "Derivados barro", texto: "DERIVADOS BARRO" },
+      { valor: "Desarmadores", texto: "DESARMADORES" },
+      { valor: "Discos y cardas", texto: "DISCOS Y CARDAS" },
+      { valor: "Divisores", texto: "DIVISORES" },
+    ],
+  },
+  {
+    letra: 'E',
+    lineas: [
+      { valor: "Electrico", texto: "ELECTRICO" },
+      { valor: "EMPAQUE DE HULE/NEOPRENO", texto: "EMPAQUE DE HULE/NEOPRENO" },
+      { valor: "Equipo de seguridad", texto: "EQUIPO DE SEGURIDAD" },
+      { valor: "EQUIPO Y ACCESORIOS PARA PINTAR", texto: "EQUIPO Y ACCESORIOS PARA PINTAR" },
+      { valor: "ESCALERAS", texto: "ESCALERAS" },
+      { valor: "ESMALTE BASE AGUA", texto: "ESMALTE BASE AGUA" },
+      { valor: "ESMALTE BRIL FAST", texto: "ESMALTE BRIL FAST" },
+      { valor: "ESMALTE INDUSTRIAL 300", texto: "ESMALTE INDUSTRIAL 300" },
+      { valor: "ESMALTE TECNOBRIL", texto: "ESMALTE TECNOBRIL" },
+      { valor: "Espatulas", texto: "ESPATULAS" },
+      { valor: "ESTUCO / PASTA y ESTRIBO DERIVADO DE VARILLA", texto: "ESTUCO / PASTA y ESTRIBO DERIVADO DE VARILLA" },
+      { valor: "EXTENSIONES ELECTRICAS", texto: "EXTENSIONES ELECTRICAS" },
+    ],
+  },
+  {
+    letra: 'F',
+    lineas: [
+      { valor: "Ferreteria", texto: "FERRETERIA" },
+    ],
+  },
+  {
+    letra: 'G',
+    lineas: [
+      { valor: "GRANOS Y MARMOLINAS", texto: "GRANOS Y MARMOLINAS" },
+      { valor: "Grapas", texto: "GRAPAS" },
+      { valor: "GRASA, LUBRICANTE AUTOMOTRIZ", texto: "GRASA, LUBRICANTE AUTOMOTRIZ" },
+      { valor: "Griferia", texto: "GRIFERIA" },
+      { valor: "Guantes", texto: "GUANTES" },
+    ],
+  },
+  {
+    letra: 'H',
+    lineas: [
+      { valor: "HERRAMIENTA CARPINTERO", texto: "HERRAMIENTA CARPINTERO" },
+      { valor: "HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL", texto: "HERRAMIENTA JARDINERIA, AGRICULTURA Y FORESTAL" },
+      { valor: "HERRAMIENTAS", texto: "HERRAMIENTAS" },
+      { valor: "HERRAMIENTAS P/CONSTRUCCION", texto: "HERRAMIENTAS P/CONSTRUCCION" },
+      { valor: "HERRAMIENTAS P/ELECTRICISTA", texto: "HERRAMIENTAS P/ELECTRICISTA" },
+    ],
+  },
+  {
+    letra: 'I',
+    lineas: [
+      { valor: "IMPERMEABILIZANTES", texto: "IMPERMEABILIZANTES" },
+    ],
+  },
+  {
+    letra: 'J',
+    lineas: [
+      { valor: "Jarceria", texto: "JARCERIA" },
+    ],
+  },
+  {
+    letra: 'L',
+    lineas: [
+      { valor: "LAMINA ACRILICA", texto: "LAMINA ACRILICA" },
+      { valor: "LAMINA DE CARTON", texto: "LAMINA DE CARTON" },
+      { valor: "LAMINA GALVANIZADA", texto: "LAMINA GALVANIZADA" },
+      { valor: "LAMINA POLYACRILICA", texto: "LAMINA POLYACRILICA" },
+      { valor: "LAMINA TIPO TEJA", texto: "LAMINA TIPO TEJA" },
+      { valor: "LAVADEROS", texto: "LAVADEROS" },
+      { valor: "LIJAS", texto: "LIJAS" },
+      { valor: "LIMAS", texto: "LIMAS" },
+      { valor: "LLAVE AJUSTABLE", texto: "LLAVE AJUSTABLE" },
+      { valor: "LLAVES INGLESAS", texto: "LLAVES INGLESAS" },
+      { valor: "LUMINARIAS, FOCOS, LED, BOMBILLAS", texto: "LUMINARIAS, FOCOS, LED, BOMBILLAS" },
+    ],
+  },
+  {
+    letra: 'M',
+    lineas: [
+      { valor: "MACHETES", texto: "MACHETES" },
+      { valor: "MACHUELOS", texto: "MACHUELOS" },
+      { valor: "MADERA Y DERIVADOS", texto: "MADERA Y DERIVADOS" },
+      { valor: "MALLAS ELECT.", texto: "MALLAS ELECT." },
+      { valor: "MALLAS/CRIBAS", texto: "MALLAS/CRIBAS" },
+      { valor: "MANGUERAS Y POLIDUCTOS", texto: "MANGUERAS Y POLIDUCTOS" },
+      { valor: "MATERIAL BRONCE", texto: "MATERIAL BRONCE" },
+      { valor: "MATERIAL COBRE", texto: "MATERIAL COBRE" },
+      { valor: "MATERIAL CPVC", texto: "MATERIAL CPVC" },
+      { valor: "MATERIAL GALVANIZADO", texto: "MATERIAL GALVANIZADO" },
+      { valor: "MATERIAL HIDRAULICO C-40", texto: "MATERIAL HIDRAULICO C-40" },
+      { valor: "MATERIAL HIDRAULICO RD26", texto: "MATERIAL HIDRAULICO RD26" },
+      { valor: "MATERIAL PVC", texto: "MATERIAL PVC" },
+      { valor: "MOLDES", texto: "MOLDES" },
+      { valor: "MORTEROS", texto: "MORTEROS" },
+      { valor: "MUEBLES DE BAÑO Y ACCESORIOS", texto: "MUEBLES DE BAÑO Y ACCESORIOS" },
+      { valor: "MULTICONTACTOS", texto: "MULTICONTACTOS" },
+    ],
+  },
+  {
+    letra: 'O',
+    lineas: [
+      { valor: "Opresores", texto: "OPRESORES" },
+    ],
+  },
+  {
+    letra: 'P',
+    lineas: [
+      { valor: "Palas", texto: "PALAS" },
+      { valor: "PEGAZULEJOS", texto: "PEGAZULEJOS" },
+      { valor: "Perfiles", texto: "PERFILES" },
+      { valor: "Pijas", texto: "PIJAS" },
+      { valor: "PINTURA ACUACOVER", texto: "PINTURA ACUACOVER" },
+      { valor: "PINTURA COVER MIL", texto: "PINTURA COVER MIL" },
+      { valor: "PINTURA COVER PRICE", texto: "PINTURA COVER PRICE" },
+      { valor: "PINTURA EN AEROSOL", texto: "PINTURA EN AEROSOL" },
+      { valor: "PINTURA ITP/CLASSIC", texto: "PINTURA ITP/CLASSIC" },
+      { valor: "PINTURA MASTER", texto: "PINTURA MASTER" },
+      { valor: "PINTURA P/ALBERCA", texto: "PINTURA P/ALBERCA" },
+      { valor: "PINTURA PARA TRAFICO", texto: "PINTURA PARA TRAFICO" },
+      { valor: "Pinzas", texto: "PINZAS" },
+      { valor: "POLIESTIRENO", texto: "POLIESTIRENO" },
+      { valor: "PRODUCTOS DE CONCRETO", texto: "PRODUCTOS DE CONCRETO" },
+      { valor: "PVC CONDUIT VERDE", texto: "PVC CONDUIT VERDE" },
+      { valor: "PISOS Y LOSETAS", texto: "PISOS Y LOSETAS" },
+    ],
+  },
+  {
+    letra: 'R',
+    lineas: [
+      { valor: "REFACCIONES CALENTADORES", texto: "REFACCIONES CALENTADORES" },
+      { valor: "REMACHES", texto: "REMACHES" },
+      { valor: "RESANADORES", texto: "RESANADORES" },
+      { valor: "RESINAS", texto: "RESINAS" },
+      { valor: "Rondanas", texto: "RONDANAS" },
+    ],
+  },
+  {
+    letra: 'S',
+    lineas: [
+      { valor: "SELLADOR P/PINTURA", texto: "SELLADOR P/PINTURA" },
+      { valor: "SEMI-INDUSTRIAL", texto: "SEMI-INDUSTRIAL" },
+      { valor: "SILICONES Y SELLADORES", texto: "SILICONES Y SELLADORES" },
+    ],
+  },
+  {
+    letra: 'T',
+    lineas: [
+      { valor: "TAQUETES", texto: "TAQUETES" },
+      { valor: "TINACOS, CISTERNAS Y ACCESORIOS", texto: "TINACOS, CISTERNAS Y ACCESORIOS" },
+      { valor: "TINAS HIDROMASAJE Y ACCESORIOS", texto: "TINAS HIDROMASAJE Y ACCESORIOS" },
+      { valor: "TORNILLO", texto: "TORNILLO" },
+      { valor: "TUBO PLUS", texto: "TUBO PLUS" },
+      { valor: "TUERCAS", texto: "TUERCAS" },
+    ],
+  },
+  {
+    letra: 'V',
+    lineas: [
+      { valor: "VALVULAS", texto: "VALVULAS" },
+      { valor: "VARILLA", texto: "VARILLA" },
+    ],
+  },
+  {
+    letra: 'Y',
+    lineas: [
+      { valor: "Yesos", texto: "YESOS" },
+    ],
+  },
+];

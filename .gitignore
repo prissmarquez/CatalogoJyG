@@ -1,6 +1,5 @@
 # Node
 node_modules/
-backend/node_modules/
 
 # Credenciales
 backend/config/google-credentials.json

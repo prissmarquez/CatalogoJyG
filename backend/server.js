@@ -5,7 +5,6 @@ require("dotenv").config({
 });
 
 const fs = require("fs");
-const os = require("os");
 const path = require("path");
 
 const express = require("express");
@@ -17,7 +16,12 @@ app.use(cors());
 
 app.use(express.json());
 
-const frontendPath = path.join(__dirname, "..", "frontend");
+// Frontend en Angular, compilado con `npm run build`.
+const frontendPath = path.join(__dirname, "..", "frontend", "dist", "browser");
+
+if (!fs.existsSync(path.join(frontendPath, "index.html"))) {
+    console.error("El frontend no está compilado. Ejecuta `npm run build` antes de `npm start`.");
+}
 
 app.use(express.static(frontendPath));
 

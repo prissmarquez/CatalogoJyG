@@ -1771,3 +1771,9 @@ body { padding-bottom: 96px; }
 
 .promotions-view .promotions-btn { background: var(--rojo); }
 .promotions-view .promotions-btn:hover { background: var(--rojo); }
+
+/* Angular: los elementos host no deben alterar el layout original */
+app-root,
+app-root > * {
+  display: contents;
+}

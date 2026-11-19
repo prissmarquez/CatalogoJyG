@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "postinstall": "npm run build",
+    "build": "npm --prefix frontend install --include=dev && npm --prefix frontend run build",
+    "start": "node backend/server.js",
+    "dev:frontend": "npm --prefix frontend start"
   },
   "keywords": [],
   "author": "",
